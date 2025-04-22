@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ArcaptchaFast"
-include(":app")
+include(":app", ":arcaptcha_native_sdk")

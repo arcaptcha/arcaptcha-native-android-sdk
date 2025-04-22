@@ -1,4 +1,4 @@
-package ir.sbpro.arcaptchafast
+package co.arcaptcha.arcaptcha_native_sdk.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import co.arcaptcha.arcaptcha_native_sdk.R
 import com.bumptech.glide.Glide
 
 class CaptchaImageAdapter(
     private val context: Context,
-    private val imageUrls: List<String>
+    private var imageUrls: List<String> = ArrayList()
 ) : BaseAdapter() {
 
     private val selectedPositions = mutableSetOf<Int>()
@@ -19,6 +20,12 @@ class CaptchaImageAdapter(
     override fun getItem(position: Int): Any = imageUrls[position]
     override fun getItemId(position: Int): Long = position.toLong()
     fun getSelectedIndices(): Set<Int> = selectedPositions
+
+    fun setImages(images: List<String>){
+        this.imageUrls = images
+        selectedPositions.clear()
+        notifyDataSetChanged()
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false)
