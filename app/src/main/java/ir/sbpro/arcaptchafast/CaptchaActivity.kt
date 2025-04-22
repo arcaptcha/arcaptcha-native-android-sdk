@@ -8,26 +8,12 @@ import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
 class CaptchaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCaptchaBinding
-    private lateinit var captchaAdapter: CaptchaImageAdapter
-
-    private val imageUrls = listOf(
-        "https://yavuzceliker.github.io/sample-images/image-1.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-2.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-3.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-4.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-5.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-6.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-7.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-8.jpg",
-        "https://yavuzceliker.github.io/sample-images/image-9.jpg"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaptchaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        captchaAdapter = CaptchaImageAdapter(this, imageUrls)
         binding.captchaView.setImages(listOf(
             "https://yavuzceliker.github.io/sample-images/image-1.jpg",
             "https://yavuzceliker.github.io/sample-images/image-2.jpg",
