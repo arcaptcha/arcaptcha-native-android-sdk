@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fakeVisualizer"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_gravity="center"
+    android:layout_marginEnd="16dp">
+
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="28dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="15dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="22dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="28dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="15dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="22dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="28dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="15dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="22dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+
+</LinearLayout>

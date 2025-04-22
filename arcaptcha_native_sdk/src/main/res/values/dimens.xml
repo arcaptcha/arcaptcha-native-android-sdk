@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="fake_vis_width">5dp</dimen>
+    <dimen name="fake_vis_margin">3dp</dimen>
+</resources>

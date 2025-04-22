@@ -14,7 +14,7 @@ class CaptchaActivity : AppCompatActivity() {
         binding = ActivityCaptchaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.captchaView.setImages(listOf(
+        binding.classicCaptchaView.setImages(listOf(
             "https://yavuzceliker.github.io/sample-images/image-1.jpg",
             "https://yavuzceliker.github.io/sample-images/image-2.jpg",
             "https://yavuzceliker.github.io/sample-images/image-3.jpg",

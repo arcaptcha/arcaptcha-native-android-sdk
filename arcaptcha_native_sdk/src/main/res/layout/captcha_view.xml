@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/captchaGrid"
+    android:id="@+id/captchaContainer"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,36 +10,13 @@
     android:layout_gravity="center"
     android:layout_margin="16dp">
 
-    <TextView
-        android:id="@+id/captchaMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="تصاویر شامل کامیون زباله را انتخاب کنید."
-        android:textColor="#5555AA"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="12dp"/>
+    <include
+        android:id="@+id/classicCaptcha"
+        layout="@layout/classic_captcha" />
 
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numColumns="3"
-        android:horizontalSpacing="6dp"
-        android:verticalSpacing="12dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:clipToPadding="false"
-        android:padding="4dp" />
-
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تایید"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rounded_button"
-        android:textColor="@android:color/white"/>
+    <include
+        android:id="@+id/soundCaptcha"
+        layout="@layout/sound_captcha" />
 
     <LinearLayout
         android:layout_width="match_parent"

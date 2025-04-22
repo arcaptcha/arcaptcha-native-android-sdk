@@ -1,12 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <co.arcaptcha.arcaptcha_native_sdk.captchas.CaptchaView
-        android:id="@+id/captchaView"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#EEEEEE"
+        android:gravity="center">
 
-</FrameLayout>
+        <co.arcaptcha.arcaptcha_native_sdk.captchas.ClassicCaptchaView
+            android:id="@+id/classicCaptchaView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <co.arcaptcha.arcaptcha_native_sdk.captchas.SoundCaptchaView
+            android:id="@+id/soundCaptchaView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>
