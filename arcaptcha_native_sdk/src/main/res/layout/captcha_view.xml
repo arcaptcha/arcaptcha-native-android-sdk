@@ -5,12 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/white"
+    android:background="@drawable/rounded_container"
     android:elevation="4dp"
     android:layout_gravity="center"
     android:layout_margin="16dp">
 
-    <!-- پیام بالای صفحه -->
     <TextView
         android:id="@+id/captchaMessage"
         android:layout_width="wrap_content"
@@ -21,14 +20,13 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="12dp"/>
 
-    <!-- گرید تصاویر -->
     <GridView
         android:id="@+id/gridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numColumns="3"
-        android:horizontalSpacing="8dp"
-        android:verticalSpacing="8dp"
+        android:horizontalSpacing="6dp"
+        android:verticalSpacing="12dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:clipToPadding="false"
@@ -43,8 +41,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"/>
-
-    <!-- آیکن‌های پایین -->
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -27,24 +27,40 @@ class CaptchaImageAdapter(
         notifyDataSetChanged()
     }
 
+    fun applyNormalStyle(imageView: ImageView, checkmark: ImageView){
+        imageView.scaleX = 1f
+        imageView.scaleY = 1f
+        imageView.alpha = 1f
+        checkmark.visibility = View.GONE
+    }
+
+    fun applyActiveStyle(imageView: ImageView, checkmark: ImageView){
+        imageView.scaleX = 0.9f
+        imageView.scaleY = 0.9f
+        imageView.alpha = 0.5f
+        checkmark.visibility = View.VISIBLE
+    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false)
         val imageView = view.findViewById<ImageView>(R.id.imageView)
-        val overlay = view.findViewById<View>(R.id.selectionOverlay)
+        val checkmark = view.findViewById<ImageView>(R.id.checkmarkIcon)
 
         Glide.with(context)
             .load(imageUrls[position])
             .into(imageView)
 
-        overlay.visibility = if (position in selectedPositions) View.VISIBLE else View.GONE
+        val isSelected = position in selectedPositions
+        if(isSelected) applyActiveStyle(imageView, checkmark)
+        else applyNormalStyle(imageView, checkmark)
 
         view.setOnClickListener {
             if (position in selectedPositions) {
                 selectedPositions.remove(position)
-                overlay.visibility = View.GONE
+                applyNormalStyle(imageView, checkmark)
             } else {
                 selectedPositions.add(position)
-                overlay.visibility = View.VISIBLE
+                applyActiveStyle(imageView, checkmark)
             }
         }
 
