@@ -6,6 +6,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
+import co.arcaptcha.arcaptcha_native_sdk.utils.FakeNetwork
+import kotlinx.coroutines.launch
 
 
 class ClassicCaptchaView @JvmOverloads constructor(
@@ -25,7 +27,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
             Toast.makeText(context, "انتخاب‌شده‌ها: $selected", Toast.LENGTH_SHORT).show()
         }
 
-        contentMode()
+        fetchCaptcha()
     }
 
     fun setImages(urls: List<String>) {
@@ -34,5 +36,14 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
     fun getSelectedIndices(): Set<Int> {
         return captchaAdapter.getSelectedIndices()
+    }
+
+    override fun fetchCaptcha() {
+        loadingMode()
+        coroutineScope.launch {
+            FakeNetwork.request({
+                contentMode()
+            })
+        }
     }
 }

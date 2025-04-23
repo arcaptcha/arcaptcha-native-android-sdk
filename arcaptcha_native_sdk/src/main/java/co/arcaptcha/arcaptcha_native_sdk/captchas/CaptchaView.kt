@@ -6,21 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.RelativeLayout
-import android.widget.Toast
-import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
-import com.github.ybq.android.spinkit.SpinKitView
-import com.github.ybq.android.spinkit.sprite.Sprite
-import com.github.ybq.android.spinkit.style.DoubleBounce
-import com.github.ybq.android.spinkit.style.ThreeBounce
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 
 
 abstract class CaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
+    protected val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     protected val binding: CaptchaViewBinding =
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -38,6 +36,10 @@ abstract class CaptchaView @JvmOverloads constructor(
         refreshButton = binding.refreshButton
         toggleButton = binding.toggleButton
         infoButton = binding.infoButton
+
+        refreshButton.setOnClickListener({
+            fetchCaptcha()
+        })
     }
 
     fun loadingMode(){
@@ -52,11 +54,13 @@ abstract class CaptchaView @JvmOverloads constructor(
         footerBox.visibility = VISIBLE
     }
 
-    fun setRefreshListener(listener: View.OnClickListener){
-        refreshButton.setOnClickListener(listener)
-    }
-
     fun setToggleListener(listener: View.OnClickListener){
         toggleButton.setOnClickListener(listener)
     }
+
+    open fun destroy() {
+        coroutineScope.cancel()
+    }
+
+    abstract fun fetchCaptcha()
 }
