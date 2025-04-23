@@ -2,32 +2,22 @@ package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.Toast
+import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
-import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
 
 
 class ClassicCaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : LinearLayout(context, attrs) {
-
-    private val binding: CaptchaViewBinding =
-        CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
-
+) : CaptchaView(context, attrs) {
     private val captchaAdapter = CaptchaImageAdapter(context)
-    private val loadingContainer: LinearLayout
-    private val captchaBox: LinearLayout
-    private val footerBox: RelativeLayout
+    override val captchaBox: LinearLayout = binding.classicCaptcha.captchaBox
 
     init {
+        toggleButton.setImageResource(R.drawable.ic_volume)
         orientation = VERTICAL
-        loadingContainer = binding.loadingContainer
-        captchaBox = binding.classicCaptcha.captchaBox
-        footerBox = binding.footer
 
         binding.classicCaptcha.gridView.adapter = captchaAdapter
         binding.classicCaptcha.confirmButton.setOnClickListener {
@@ -35,7 +25,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
             Toast.makeText(context, "انتخاب‌شده‌ها: $selected", Toast.LENGTH_SHORT).show()
         }
 
-        loadingMode()
+        contentMode()
     }
 
     fun setImages(urls: List<String>) {
@@ -44,17 +34,5 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
     fun getSelectedIndices(): Set<Int> {
         return captchaAdapter.getSelectedIndices()
-    }
-
-    fun loadingMode(){
-        loadingContainer.visibility = VISIBLE
-        captchaBox.visibility = GONE
-        footerBox.visibility = GONE
-    }
-
-    fun contentMode(){
-        loadingContainer.visibility = GONE
-        captchaBox.visibility = VISIBLE
-        footerBox.visibility = VISIBLE
     }
 }
