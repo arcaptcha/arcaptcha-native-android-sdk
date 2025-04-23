@@ -39,7 +39,7 @@ class SoundCaptchaView @JvmOverloads constructor(
     private fun playAudio() {
         isSoundPlaying = true
         playButton.setImageResource(R.drawable.ic_pause)
-        
+
         mediaPlayer = MediaPlayer().apply {
             setDataSource(audioUrl)
             prepareAsync()

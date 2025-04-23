@@ -1,0 +1,7 @@
+<resources>
+    <color name="edit_text_color">#65667e</color>
+    <color name="edit_text_background">#f0f0f7</color>
+    <color name="edit_text_border_default">#f0f0f7</color>
+    <color name="edit_text_border_focused">#978ff2</color>
+    <color name="hint_color">#d7d7e0</color>
+</resources>

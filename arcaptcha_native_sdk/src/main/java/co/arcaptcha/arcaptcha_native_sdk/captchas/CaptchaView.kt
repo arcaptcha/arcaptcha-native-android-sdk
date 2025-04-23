@@ -4,24 +4,28 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
+import com.github.ybq.android.spinkit.SpinKitView
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.DoubleBounce
+import com.github.ybq.android.spinkit.style.ThreeBounce
 
 
-class ClassicCaptchaView @JvmOverloads constructor(
+open class CaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
 
-    private val binding: CaptchaViewBinding =
+    protected val binding: CaptchaViewBinding =
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private val captchaAdapter = CaptchaImageAdapter(context)
-    private val loadingContainer: LinearLayout
-    private val captchaBox: LinearLayout
-    private val footerBox: RelativeLayout
+    protected val loadingContainer: LinearLayout
+    protected val captchaBox: LinearLayout
+    protected val footerBox: RelativeLayout
 
     init {
         orientation = VERTICAL
@@ -29,21 +33,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
         captchaBox = binding.classicCaptcha.captchaBox
         footerBox = binding.footer
 
-        binding.classicCaptcha.gridView.adapter = captchaAdapter
-        binding.classicCaptcha.confirmButton.setOnClickListener {
-            val selected = captchaAdapter.getSelectedIndices()
-            Toast.makeText(context, "انتخاب‌شده‌ها: $selected", Toast.LENGTH_SHORT).show()
-        }
-
         loadingMode()
-    }
-
-    fun setImages(urls: List<String>) {
-        captchaAdapter.setImages(urls)
-    }
-
-    fun getSelectedIndices(): Set<Int> {
-        return captchaAdapter.getSelectedIndices()
     }
 
     fun loadingMode(){

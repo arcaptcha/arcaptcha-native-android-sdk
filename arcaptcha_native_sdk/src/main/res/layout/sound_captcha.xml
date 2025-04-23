@@ -28,6 +28,24 @@
             android:contentDescription="Play Audio" />
     </RelativeLayout>
 
+    <EditText
+        android:id="@+id/myEditText"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="چیزی که میشنوید را اینجا وارد کنید"
+        android:textColorHint="@color/hint_color"
+        android:textColor="@color/edit_text_color"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:padding="0dp"
+        android:inputType="text"
+        android:textDirection="rtl"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal" />
+
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="match_parent"
