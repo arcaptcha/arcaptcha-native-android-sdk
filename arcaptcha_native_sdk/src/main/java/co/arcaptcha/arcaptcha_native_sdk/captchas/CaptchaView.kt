@@ -8,6 +8,10 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
+import co.arcaptcha.arcaptcha_native_sdk.managers.CaptchaManager
+import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
+import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,11 +21,13 @@ import kotlinx.coroutines.cancel
 abstract class CaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : LinearLayout(context, attrs) {
+) : LinearLayout(context, attrs), CaptchaCallback {
     protected val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     protected val binding: CaptchaViewBinding =
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
 
+    abstract protected val manager: CaptchaManager
+    protected lateinit var arcaptchaApi: ArcaptchaAPI
     protected abstract val captchaBox: LinearLayout
     protected val loadingContainer: LinearLayout
     protected val footerBox: RelativeLayout
@@ -40,6 +46,14 @@ abstract class CaptchaView @JvmOverloads constructor(
         refreshButton.setOnClickListener({
             fetchCaptcha()
         })
+    }
+
+    fun loadCaptcha(){
+        manager.loadCaptcha(arcaptchaApi)
+    }
+
+    fun setApi(arcAPI: ArcaptchaAPI){
+        this.arcaptchaApi = arcAPI
     }
 
     fun loadingMode(){

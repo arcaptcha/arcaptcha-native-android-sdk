@@ -46,5 +46,10 @@ dependencies {
     implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation("com.google.android.material:material:1.10.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 }

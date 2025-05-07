@@ -8,6 +8,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.R
+import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
+import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.utils.FakeNetwork
 import kotlinx.coroutines.launch
 
@@ -15,6 +17,7 @@ class SoundCaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : CaptchaView(context, attrs) {
+    override lateinit var manager: ClassicCaptchaManager
     override val captchaBox: LinearLayout = binding.soundCaptcha.captchaBox
     private lateinit var mediaPlayer: MediaPlayer
     private var captchaEditText: EditText = binding.soundCaptcha.captchaEditText
@@ -75,5 +78,17 @@ class SoundCaptchaView @JvmOverloads constructor(
         if (::mediaPlayer.isInitialized) {
             mediaPlayer.release()
         }
+    }
+
+    override fun onStateChanged(state: CaptchaState) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onResult(success: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onError(message: String) {
+        TODO("Not yet implemented")
     }
 }

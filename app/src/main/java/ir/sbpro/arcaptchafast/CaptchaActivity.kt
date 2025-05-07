@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ir.sbpro.arcaptchafast.databinding.ActivityCaptchaBinding
 import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
+import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 
 class CaptchaActivity : AppCompatActivity() {
 
@@ -14,16 +15,12 @@ class CaptchaActivity : AppCompatActivity() {
         binding = ActivityCaptchaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.classicCaptchaView.setImages(listOf(
-            "https://yavuzceliker.github.io/sample-images/image-1.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-2.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-3.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-4.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-5.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-6.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-7.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-8.jpg",
-            "https://yavuzceliker.github.io/sample-images/image-9.jpg"
-        ))
+        val classicCaptcha = binding.classicCaptchaView
+        val soundCaptcha = binding.soundCaptchaView
+
+        val arcaptchaAPI = ArcaptchaAPI("afge5xjsq6", "localhost")
+        classicCaptcha.setApi(arcaptchaAPI)
+        soundCaptcha.setApi(arcaptchaAPI)
+        classicCaptcha.loadCaptcha()
     }
 }
