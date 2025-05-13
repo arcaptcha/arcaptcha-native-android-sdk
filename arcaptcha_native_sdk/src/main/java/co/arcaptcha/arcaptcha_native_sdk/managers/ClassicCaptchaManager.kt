@@ -16,7 +16,11 @@ class ClassicCaptchaManager(private val callback: ClassicCaptchaCallback) : Capt
         callback.onStateChanged(CaptchaState.LoadingCaptcha)
         val api = RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
 
-        api.getClassicCaptcha(questionRequest).enqueue(object : Callback<ClassicCaptchaData> {
+        val reqBody = questionRequest.copy().apply {
+            this.site_key = arcaptchaAPI.siteKey
+        }
+
+        api.getClassicCaptcha(reqBody).enqueue(object : Callback<ClassicCaptchaData> {
             override fun onResponse(call: Call<ClassicCaptchaData>, response: Response<ClassicCaptchaData>) {
                 if (response.isSuccessful && response.body() != null) {
                     callback.onCaptchaLoaded(response.body()!!)

@@ -1,7 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.models.requests
 
 data class CaptchaRequest(
-    val site_key: String?,
+    var site_key: String?,
     val domain: String?,
     val bowman_id: String?,
     var captcha_type: String?,
@@ -32,7 +32,7 @@ data class CaptchaRequest(
 
 //used for question and voice challenges
 val questionRequest = CaptchaRequest(
-    site_key = "afge5xjsq6",
+    site_key = "",
     domain = "localhost",
     bowman_id = "dsads",
     captcha_type = "question",
@@ -48,6 +48,6 @@ val questionRequest = CaptchaRequest(
 )
 
 //used for slide puzzles
-val puzzleRequest = questionRequest.copy().let {
-    it.captcha_type = "puzzle"
+val puzzleRequest = questionRequest.copy().apply {
+    this.captcha_type = "puzzle"
 }

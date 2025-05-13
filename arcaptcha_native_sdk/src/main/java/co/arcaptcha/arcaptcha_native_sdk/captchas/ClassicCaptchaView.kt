@@ -19,8 +19,8 @@ class ClassicCaptchaView @JvmOverloads constructor(
 ) : CaptchaView(context, attrs), ClassicCaptchaCallback {
     override val manager = ClassicCaptchaManager(this)
     private val captchaAdapter = CaptchaImageAdapter(context)
-    override val captchaBox: LinearLayout = binding.classicCaptcha.captchaBox
     val classicCaptchaView = binding.classicCaptcha
+    override val captchaBox: LinearLayout = classicCaptchaView.captchaBox
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
@@ -38,7 +38,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
     }
 
     override fun onCaptchaLoaded(data: ClassicCaptchaData) {
-        Log.d("XQQQState", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+        Log.d("XQQQStateClassic", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
         classicCaptchaView.captchaMessage.setText("تصاویر شامل ${data.content?.category} را انتخاب کنید")
         data.content?.image_urls?.let {
             val finalImageUrls = it.map { item ->
@@ -54,8 +54,8 @@ class ClassicCaptchaView @JvmOverloads constructor(
         when (state) {
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
-            CaptchaState.Done -> TODO()
-            CaptchaState.Error -> TODO()
+            CaptchaState.Done -> {}
+            CaptchaState.Error -> {}
         }
         outerCallback?.onStateChanged(state)
     }

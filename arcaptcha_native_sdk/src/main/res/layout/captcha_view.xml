@@ -49,6 +49,10 @@
             android:id="@+id/soundCaptcha"
             layout="@layout/sound_captcha" />
 
+        <include
+            android:id="@+id/slideCaptcha"
+            layout="@layout/slide_captcha" />
+
         <RelativeLayout
             android:id="@+id/footer"
             android:layout_marginTop="15dp"

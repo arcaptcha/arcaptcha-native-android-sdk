@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.models
 
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
 
 fun interface InternalCaptchaCallback {
@@ -20,4 +21,8 @@ interface ClassicCaptchaCallback : InternalCaptchaCallback {
 
 interface VoiceChallengeCallback : InternalCaptchaCallback {
     fun onCaptchaLoaded(data: VoiceChallengeData)
+}
+
+interface SlidePuzzleCallback : InternalCaptchaCallback {
+    fun onCaptchaLoaded(data: SlidePuzzleData)
 }

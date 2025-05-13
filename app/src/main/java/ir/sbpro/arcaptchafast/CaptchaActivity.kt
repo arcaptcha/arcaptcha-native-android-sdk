@@ -3,9 +3,7 @@ package ir.sbpro.arcaptchafast
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import ir.sbpro.arcaptchafast.databinding.ActivityCaptchaBinding
-import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 
 class CaptchaActivity : AppCompatActivity() {
@@ -17,12 +15,15 @@ class CaptchaActivity : AppCompatActivity() {
         binding = ActivityCaptchaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val questArcApi = ArcaptchaAPI("afge5xjsq6", "localhost")
+        val puzzleArcApi = ArcaptchaAPI("bq44zwr6cn", "localhost")
+
         val classicCaptcha = binding.classicCaptchaView
         val soundCaptcha = binding.soundCaptchaView
+        val slideCaptcha = binding.slideCaptchaView
 
-        val arcaptchaAPI = ArcaptchaAPI("afge5xjsq6", "localhost")
-        classicCaptcha.initCaptcha(arcaptchaAPI) {
-            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan")
+        classicCaptcha.initCaptcha(questArcApi) {
+            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan Classic")
         }
 
         /*classicCaptcha.initCaptcha(arcaptchaAPI, object : CaptchaCallback {
@@ -31,11 +32,16 @@ class CaptchaActivity : AppCompatActivity() {
             }
         })*/
 
-        soundCaptcha.initCaptcha(arcaptchaAPI) {
-            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan")
+        soundCaptcha.initCaptcha(questArcApi) {
+            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan Sound")
+        }
+
+        slideCaptcha.initCaptcha(puzzleArcApi) {
+            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan Slide")
         }
 
         classicCaptcha.loadCaptcha()
         soundCaptcha.loadCaptcha()
+        slideCaptcha.loadCaptcha()
     }
 }

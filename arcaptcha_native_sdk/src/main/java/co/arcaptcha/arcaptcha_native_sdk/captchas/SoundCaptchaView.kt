@@ -19,10 +19,11 @@ class SoundCaptchaView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : CaptchaView(context, attrs), VoiceChallengeCallback {
     override val manager = VoiceChallengeManager(this)
-    override val captchaBox: LinearLayout = binding.soundCaptcha.captchaBox
+    val soundCaptchaView = binding.soundCaptcha
+    override val captchaBox: LinearLayout = soundCaptchaView.captchaBox
     private lateinit var mediaPlayer: MediaPlayer
-    private var captchaEditText: EditText = binding.soundCaptcha.captchaEditText
-    private var playButton: ImageButton = binding.soundCaptcha.playButton
+    private var captchaEditText: EditText = soundCaptchaView.captchaEditText
+    private var playButton: ImageButton = soundCaptchaView.playButton
     private var isSoundPlaying = false
     private var audioUrl = "https://download.samplelib.com/mp3/sample-3s.mp3"
 
@@ -35,7 +36,7 @@ class SoundCaptchaView @JvmOverloads constructor(
 
         orientation = VERTICAL
 
-        binding.soundCaptcha.confirmButton.setOnClickListener {
+        soundCaptchaView.confirmButton.setOnClickListener {
             Toast.makeText(context, "متن وارد شده: ${captchaEditText.text}",
                 Toast.LENGTH_SHORT).show()
             captchaEditText.setText("")
@@ -84,8 +85,8 @@ class SoundCaptchaView @JvmOverloads constructor(
         when (state) {
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
-            CaptchaState.Done -> TODO()
-            CaptchaState.Error -> TODO()
+            CaptchaState.Done -> {}
+            CaptchaState.Error -> {}
         }
         outerCallback?.onStateChanged(state)
     }
