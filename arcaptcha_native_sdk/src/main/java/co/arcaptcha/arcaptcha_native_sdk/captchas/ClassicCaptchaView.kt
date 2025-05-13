@@ -11,8 +11,6 @@ import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.ClassicCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
-import co.arcaptcha.arcaptcha_native_sdk.utils.FakeNetwork
-import kotlinx.coroutines.launch
 
 
 class ClassicCaptchaView @JvmOverloads constructor(
@@ -33,21 +31,10 @@ class ClassicCaptchaView @JvmOverloads constructor(
             val selected = captchaAdapter.getSelectedIndices()
             Toast.makeText(context, "انتخاب‌شده‌ها: $selected", Toast.LENGTH_SHORT).show()
         }
-
-        fetchCaptcha()
     }
 
     fun getSelectedIndices(): Set<Int> {
         return captchaAdapter.getSelectedIndices()
-    }
-
-    override fun fetchCaptcha() {
-        loadingMode()
-        coroutineScope.launch {
-            FakeNetwork.request({
-                contentMode()
-            })
-        }
     }
 
     override fun onCaptchaLoaded(data: ClassicCaptchaData) {
@@ -60,6 +47,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
             captchaAdapter.setImages(finalImageUrls)
         }
+        outerCallback?.onCaptchaLoaded()
     }
 
     override fun onStateChanged(state: CaptchaState) {
@@ -69,13 +57,19 @@ class ClassicCaptchaView @JvmOverloads constructor(
             CaptchaState.Done -> TODO()
             CaptchaState.Error -> TODO()
         }
+        outerCallback?.onStateChanged(state)
     }
 
-    override fun onResult(success: Boolean) {
-        Log.d("XQQQState", "onResult: $success")
+    override fun onCorrectAnswer() {
+        outerCallback?.onCorrectAnswer()
+    }
+
+    override fun onWrongAnswer() {
+        outerCallback?.onWrongAnswer()
     }
 
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
+        outerCallback?.onError(message)
     }
 }

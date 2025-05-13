@@ -1,9 +1,11 @@
 package ir.sbpro.arcaptchafast
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import ir.sbpro.arcaptchafast.databinding.ActivityCaptchaBinding
-import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
+import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 
 class CaptchaActivity : AppCompatActivity() {
@@ -19,8 +21,21 @@ class CaptchaActivity : AppCompatActivity() {
         val soundCaptcha = binding.soundCaptchaView
 
         val arcaptchaAPI = ArcaptchaAPI("afge5xjsq6", "localhost")
-        classicCaptcha.setApi(arcaptchaAPI)
-        soundCaptcha.setApi(arcaptchaAPI)
+        classicCaptcha.initCaptcha(arcaptchaAPI) {
+            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan")
+        }
+
+        /*classicCaptcha.initCaptcha(arcaptchaAPI, object : CaptchaCallback {
+            override fun onCorrectAnswer() {
+                Log.d("XQQQOutBoxOnCorrect", "HaBeleJan")
+            }
+        })*/
+
+        soundCaptcha.initCaptcha(arcaptchaAPI) {
+            Log.d("XQQQOutBoxOnCorrect", "HaBeleJan")
+        }
+
         classicCaptcha.loadCaptcha()
+        soundCaptcha.loadCaptcha()
     }
 }

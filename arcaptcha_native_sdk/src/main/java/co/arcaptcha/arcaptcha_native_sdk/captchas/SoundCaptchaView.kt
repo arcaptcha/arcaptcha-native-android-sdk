@@ -3,33 +3,34 @@ package co.arcaptcha.arcaptcha_native_sdk.captchas
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.R
-import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
+import co.arcaptcha.arcaptcha_native_sdk.managers.VoiceChallengeManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.utils.FakeNetwork
-import kotlinx.coroutines.launch
+import co.arcaptcha.arcaptcha_native_sdk.models.VoiceChallengeCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
 
 class SoundCaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : CaptchaView(context, attrs) {
-    override lateinit var manager: ClassicCaptchaManager
+) : CaptchaView(context, attrs), VoiceChallengeCallback {
+    override val manager = VoiceChallengeManager(this)
     override val captchaBox: LinearLayout = binding.soundCaptcha.captchaBox
     private lateinit var mediaPlayer: MediaPlayer
     private var captchaEditText: EditText = binding.soundCaptcha.captchaEditText
     private var playButton: ImageButton = binding.soundCaptcha.playButton
     private var isSoundPlaying = false
-    private val audioUrl = "https://download.samplelib.com/mp3/sample-3s.mp3"
+    private var audioUrl = "https://download.samplelib.com/mp3/sample-3s.mp3"
 
     init {
         toggleButton.setImageResource(R.drawable.ic_image)
 
         playButton.setOnClickListener {
-            if (!isSoundPlaying) playAudio()
+            if (!isSoundPlaying && audioUrl.isNotEmpty()) playAudio()
         }
 
         orientation = VERTICAL
@@ -40,11 +41,11 @@ class SoundCaptchaView @JvmOverloads constructor(
             captchaEditText.setText("")
             captchaEditText.clearFocus()
         }
-
-        fetchCaptcha()
     }
 
     private fun playAudio() {
+        if(audioUrl.isEmpty()) return;
+
         isSoundPlaying = true
         playButton.setImageResource(R.drawable.ic_pause)
 
@@ -64,15 +65,6 @@ class SoundCaptchaView @JvmOverloads constructor(
         }
     }
 
-    override fun fetchCaptcha() {
-        loadingMode()
-        coroutineScope.launch {
-            FakeNetwork.request({
-                contentMode()
-            })
-        }
-    }
-
     override fun destroy() {
         super.destroy()
         if (::mediaPlayer.isInitialized) {
@@ -80,15 +72,34 @@ class SoundCaptchaView @JvmOverloads constructor(
         }
     }
 
-    override fun onStateChanged(state: CaptchaState) {
-        TODO("Not yet implemented")
+    override fun onCaptchaLoaded(data: VoiceChallengeData) {
+        Log.d("XQQQStateVC", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+        data.content?.path?.let {
+            audioUrl = arcaptchaApi.getVoiceUrl(it)
+        }
+        outerCallback?.onCaptchaLoaded()
     }
 
-    override fun onResult(success: Boolean) {
-        TODO("Not yet implemented")
+    override fun onStateChanged(state: CaptchaState) {
+        when (state) {
+            CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
+            CaptchaState.AwaitingUserInput -> contentMode()
+            CaptchaState.Done -> TODO()
+            CaptchaState.Error -> TODO()
+        }
+        outerCallback?.onStateChanged(state)
+    }
+
+    override fun onCorrectAnswer() {
+        outerCallback?.onCorrectAnswer()
+    }
+
+    override fun onWrongAnswer() {
+        outerCallback?.onWrongAnswer()
     }
 
     override fun onError(message: String) {
-        TODO("Not yet implemented")
+        Log.d("XQQQStateError", message)
+        outerCallback?.onError(message)
     }
 }

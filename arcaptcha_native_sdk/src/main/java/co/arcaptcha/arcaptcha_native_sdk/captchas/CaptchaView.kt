@@ -9,8 +9,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
 import co.arcaptcha.arcaptcha_native_sdk.managers.CaptchaManager
-import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,14 +21,15 @@ import kotlinx.coroutines.cancel
 abstract class CaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : LinearLayout(context, attrs), CaptchaCallback {
+) : LinearLayout(context, attrs), InternalCaptchaCallback {
     protected val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     protected val binding: CaptchaViewBinding =
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     abstract protected val manager: CaptchaManager
-    protected lateinit var arcaptchaApi: ArcaptchaAPI
     protected abstract val captchaBox: LinearLayout
+    protected lateinit var arcaptchaApi: ArcaptchaAPI
+    protected var outerCallback: CaptchaCallback? = null
     protected val loadingContainer: LinearLayout
     protected val footerBox: RelativeLayout
     protected val refreshButton: ImageButton
@@ -44,7 +45,7 @@ abstract class CaptchaView @JvmOverloads constructor(
         infoButton = binding.infoButton
 
         refreshButton.setOnClickListener({
-            fetchCaptcha()
+            loadCaptcha()
         })
     }
 
@@ -52,8 +53,9 @@ abstract class CaptchaView @JvmOverloads constructor(
         manager.loadCaptcha(arcaptchaApi)
     }
 
-    fun setApi(arcAPI: ArcaptchaAPI){
+    fun initCaptcha(arcAPI: ArcaptchaAPI, outCallback: CaptchaCallback){
         this.arcaptchaApi = arcAPI
+        this.outerCallback = outCallback
     }
 
     fun loadingMode(){
@@ -75,6 +77,4 @@ abstract class CaptchaView @JvmOverloads constructor(
     open fun destroy() {
         coroutineScope.cancel()
     }
-
-    abstract fun fetchCaptcha()
 }
