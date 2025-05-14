@@ -1,14 +1,10 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.models.ClassicCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.SlidePuzzleCallback
-import co.arcaptcha.arcaptcha_native_sdk.models.VoiceChallengeCallback
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
-import co.arcaptcha.arcaptcha_native_sdk.models.requests.puzzleRequest
-import co.arcaptcha.arcaptcha_native_sdk.models.requests.questionRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.CaptchaDataRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
 import retrofit2.Call
@@ -20,10 +16,7 @@ class SlidePuzzleManager(private val callback: SlidePuzzleCallback) : CaptchaMan
         callback.onStateChanged(CaptchaState.LoadingCaptcha)
         val api = RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
 
-        val reqBody = puzzleRequest.copy().apply {
-            this.site_key = arcaptchaAPI.siteKey
-        }
-
+        val reqBody = CaptchaDataRequest(arcaptchaAPI, BaseRequest.SLIDE_CAPTCHA_TYPE)
         api.getSlidePuzzle(reqBody).enqueue(object : Callback<SlidePuzzleData> {
             override fun onResponse(call: Call<SlidePuzzleData>, response: Response<SlidePuzzleData>) {
                 if (response.isSuccessful && response.body() != null) {

@@ -3,7 +3,8 @@ package co.arcaptcha.arcaptcha_native_sdk.managers
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.ClassicCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
-import co.arcaptcha.arcaptcha_native_sdk.models.requests.questionRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.CaptchaDataRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
 import retrofit2.Call
@@ -16,10 +17,7 @@ class ClassicCaptchaManager(private val callback: ClassicCaptchaCallback) : Capt
         callback.onStateChanged(CaptchaState.LoadingCaptcha)
         val api = RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
 
-        val reqBody = questionRequest.copy().apply {
-            this.site_key = arcaptchaAPI.siteKey
-        }
-
+        val reqBody = CaptchaDataRequest(arcaptchaAPI, BaseRequest.CLASSIC_CAPTCHA_TYPE)
         api.getClassicCaptcha(reqBody).enqueue(object : Callback<ClassicCaptchaData> {
             override fun onResponse(call: Call<ClassicCaptchaData>, response: Response<ClassicCaptchaData>) {
                 if (response.isSuccessful && response.body() != null) {
