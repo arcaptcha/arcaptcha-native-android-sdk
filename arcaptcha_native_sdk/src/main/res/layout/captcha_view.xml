@@ -14,7 +14,7 @@
         android:background="@drawable/rounded_container"
         android:elevation="4dp"
         android:layout_gravity="center"
-        android:layout_margin="16dp">
+        android:layout_margin="8dp">
 
     <LinearLayout
         android:id="@+id/loadingContainer"
