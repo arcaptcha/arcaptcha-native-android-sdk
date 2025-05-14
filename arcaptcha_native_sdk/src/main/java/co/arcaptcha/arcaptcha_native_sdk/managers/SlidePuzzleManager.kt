@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SlidePuzzleManager(private val callback: SlidePuzzleCallback) : CaptchaManager {
+class SlidePuzzleManager(callback: SlidePuzzleCallback) : CaptchaManager(callback) {
     override fun loadCaptcha(arcaptchaAPI: ArcaptchaAPI) {
         callback.onStateChanged(CaptchaState.LoadingCaptcha)
         val api = RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
@@ -20,7 +20,7 @@ class SlidePuzzleManager(private val callback: SlidePuzzleCallback) : CaptchaMan
         api.getSlidePuzzle(reqBody).enqueue(object : Callback<SlidePuzzleData> {
             override fun onResponse(call: Call<SlidePuzzleData>, response: Response<SlidePuzzleData>) {
                 if (response.isSuccessful && response.body() != null) {
-                    callback.onCaptchaLoaded(response.body()!!)
+                    (callback as SlidePuzzleCallback).onCaptchaLoaded(response.body()!!)
                     callback.onStateChanged(CaptchaState.AwaitingUserInput)
                 } else {
                     callback.onStateChanged(CaptchaState.Error)

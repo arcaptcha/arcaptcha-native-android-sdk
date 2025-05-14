@@ -85,6 +85,7 @@ class SoundCaptchaView @JvmOverloads constructor(
         when (state) {
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
+            CaptchaState.WrongAnswer -> {}
             CaptchaState.Done -> {}
             CaptchaState.Error -> {}
         }

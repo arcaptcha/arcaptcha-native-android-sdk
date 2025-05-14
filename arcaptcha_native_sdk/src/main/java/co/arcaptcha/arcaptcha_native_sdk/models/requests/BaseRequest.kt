@@ -17,3 +17,8 @@ open class BaseRequest(arcApi: ArcaptchaAPI){
         const val SLIDE_CAPTCHA_TYPE = "puzzle"
     }
 }
+
+open class BaseAnswerRequest(
+    arcApi: ArcaptchaAPI,
+    val challenge_id: String
+) : BaseRequest(arcApi)

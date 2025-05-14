@@ -55,6 +55,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
             CaptchaState.Done -> {}
+            CaptchaState.WrongAnswer -> {}
             CaptchaState.Error -> {}
         }
         outerCallback?.onStateChanged(state)

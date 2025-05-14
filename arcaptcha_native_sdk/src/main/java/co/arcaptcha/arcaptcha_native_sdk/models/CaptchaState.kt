@@ -5,5 +5,6 @@ enum class CaptchaState {
     AwaitingUserInput,
     SubmittingSolution,
     Done,
+    WrongAnswer,
     Error
 }

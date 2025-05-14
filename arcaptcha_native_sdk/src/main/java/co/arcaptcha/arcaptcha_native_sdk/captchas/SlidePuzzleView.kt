@@ -85,6 +85,7 @@ class SlidePuzzleView @JvmOverloads constructor(
                 puzzleSlider.resetSlider()
             }
             CaptchaState.AwaitingUserInput -> contentMode()
+            CaptchaState.WrongAnswer -> {}
             CaptchaState.Done -> {}
             CaptchaState.Error -> {}
         }

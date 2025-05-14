@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class VoiceChallengeManager(private val callback: VoiceChallengeCallback) : CaptchaManager {
+class VoiceChallengeManager(callback: VoiceChallengeCallback) : CaptchaManager(callback) {
     override fun loadCaptcha(arcaptchaAPI: ArcaptchaAPI) {
         callback.onStateChanged(CaptchaState.LoadingCaptcha)
         val api = RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
@@ -20,7 +20,7 @@ class VoiceChallengeManager(private val callback: VoiceChallengeCallback) : Capt
         api.getVoiceChallenge(reqBody).enqueue(object : Callback<VoiceChallengeData> {
             override fun onResponse(call: Call<VoiceChallengeData>, response: Response<VoiceChallengeData>) {
                 if (response.isSuccessful && response.body() != null) {
-                    callback.onCaptchaLoaded(response.body()!!)
+                    (callback as VoiceChallengeCallback).onCaptchaLoaded(response.body()!!)
                     callback.onStateChanged(CaptchaState.AwaitingUserInput)
                 } else {
                     callback.onStateChanged(CaptchaState.Error)

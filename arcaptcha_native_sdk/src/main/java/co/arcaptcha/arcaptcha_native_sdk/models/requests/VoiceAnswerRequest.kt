@@ -4,6 +4,6 @@ import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 
 class VoiceAnswerRequest(
     arcApi: ArcaptchaAPI,
-    val challenge_id: String,
+    challenge_id: String,
     val  answers: String
-) : BaseRequest(arcApi)
+) : BaseAnswerRequest(arcApi, challenge_id)
