@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layoutDirection="ltr"
+    android:id="@+id/sliderContainer"
+    android:layout_width="325dp"
+    android:layout_height="60dp"
+    android:background="@drawable/slider_background" >
+
+    <TextView
+        android:id="@+id/sliderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="بازل را به جایش برگردانید"
+        android:textColor="#999"
+        android:textSize="14sp"
+        android:layout_centerInParent="true" />
+
+    <ImageView
+        android:id="@+id/sliderThumb"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_test"
+        android:background="@drawable/thumb_background"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp" />
+</RelativeLayout>

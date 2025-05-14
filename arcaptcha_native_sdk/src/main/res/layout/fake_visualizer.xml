@@ -86,4 +86,30 @@
         android:layout_margin="@dimen/fake_vis_margin"
         android:background="@drawable/visualizer_bar" />
 
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="28dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="15dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+    <View
+        android:layout_width="@dimen/fake_vis_width"
+        android:layout_height="22dp"
+        android:layout_margin="@dimen/fake_vis_margin"
+        android:background="@drawable/visualizer_bar" />
+
 </LinearLayout>
