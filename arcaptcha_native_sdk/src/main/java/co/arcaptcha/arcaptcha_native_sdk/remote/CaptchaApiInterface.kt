@@ -1,6 +1,6 @@
 package co.arcaptcha.arcaptcha_native_sdk.remote
 
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaAnswerResponse
+import co.arcaptcha.arcaptcha_native_sdk.models.responses.CaptchaAnswerResponse
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
