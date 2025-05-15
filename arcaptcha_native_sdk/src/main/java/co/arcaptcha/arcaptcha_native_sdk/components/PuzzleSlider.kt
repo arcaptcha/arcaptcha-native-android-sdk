@@ -23,7 +23,7 @@ class PuzzleSlider @JvmOverloads constructor(
     private var sliderThumb: ImageView = binding.sliderThumb
 
     public var startTime = 0L
-    public var sliderMaxValue = 0f
+    protected var sliderMaxValue = 0f
     protected var sliderCurrentRealValue = 0f
     protected var sliderCurrentScaledValue = 0
     protected var onInput: ((Float, Int) -> Unit)? = null
@@ -39,6 +39,11 @@ class PuzzleSlider @JvmOverloads constructor(
 
     public fun setOnChangeListener(l: (Float, Int, Int, Int) -> Unit){
         onChange = l
+    }
+
+    public fun setMaxValue(value: Float){
+        //30 = nesfe size thumb yani nesfe 60 be dp ke dar file xml set shode ast
+        this.sliderMaxValue = value - 30
     }
 
     fun resetSlider(){

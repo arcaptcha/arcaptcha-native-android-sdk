@@ -15,8 +15,6 @@ import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SlidePuzzleView @JvmOverloads constructor(
     context: Context,
@@ -40,7 +38,7 @@ class SlidePuzzleView @JvmOverloads constructor(
         toggleButton.setImageResource(R.drawable.ic_image)
         orientation = VERTICAL
 
-        puzzleSlider.sliderMaxValue = puzzleOriginalWidth.toFloat()
+        puzzleSlider.setMaxValue(puzzleOriginalWidth.toFloat())
         puzzleSlider.setOnInputListener {realValue, scaledValue ->
             puzzlePieceImage.translationX = realValue
         }
