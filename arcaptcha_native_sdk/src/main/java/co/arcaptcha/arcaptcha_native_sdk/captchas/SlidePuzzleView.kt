@@ -92,7 +92,7 @@ class SlidePuzzleView @JvmOverloads constructor(
             }
             CaptchaState.AwaitingUserInput -> contentMode()
             CaptchaState.WrongAnswer -> {}
-            CaptchaState.Done -> {}
+            CaptchaState.Done -> disableMode()
             CaptchaState.Error -> {}
         }
         outerCallback?.onStateChanged(state)

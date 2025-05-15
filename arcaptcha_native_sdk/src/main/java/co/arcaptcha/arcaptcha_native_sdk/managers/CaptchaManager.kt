@@ -6,6 +6,9 @@ import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaAnswerResponse
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.VoiceAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
 import retrofit2.Call
@@ -41,7 +44,7 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
         val api = RetrofitClient.getInstance(arcaptchaAPI!!.apiBaseUrl).api
         Log.d("XQQQSSAnsReqBody", requestBody.toString())
 
-        api.submitCaptchaAnswer(requestBody).enqueue(object : Callback<CaptchaAnswerResponse> {
+        val retrofitRequest = object : Callback<CaptchaAnswerResponse> {
             override fun onResponse(call: Call<CaptchaAnswerResponse>, response: Response<CaptchaAnswerResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     if(response.body()!!.success){
@@ -60,6 +63,10 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
             override fun onFailure(call: Call<CaptchaAnswerResponse>, t: Throwable) {
                 onCaptchaError(t.message ?: "Unknown error")
             }
-        })
+        }
+
+        if(requestBody is ClassicAnswerRequest) api.submitClassicCaptchaAnswer(requestBody).enqueue(retrofitRequest)
+        else if(requestBody is VoiceAnswerRequest) api.submitVoiceChallengeAnswer(requestBody).enqueue(retrofitRequest)
+        else if(requestBody is SlideAnswerRequest) api.submitSlidePuzzleAnswer(requestBody).enqueue(retrofitRequest)
     }
 }

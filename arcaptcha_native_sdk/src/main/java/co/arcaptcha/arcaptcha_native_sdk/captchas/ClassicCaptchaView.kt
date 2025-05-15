@@ -10,7 +10,6 @@ import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
 
 
@@ -82,7 +81,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
         when (state) {
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
-            CaptchaState.Done -> {}
+            CaptchaState.Done -> disableMode()
             CaptchaState.WrongAnswer -> {}
             CaptchaState.Error -> {}
         }

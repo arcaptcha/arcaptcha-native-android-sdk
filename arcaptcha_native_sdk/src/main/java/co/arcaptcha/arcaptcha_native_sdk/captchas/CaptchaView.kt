@@ -1,5 +1,6 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -68,20 +69,30 @@ abstract class CaptchaView @JvmOverloads constructor(
         this.outerCallback = outCallback
     }
 
+    fun showContent(){
+        loadingContainer.visibility = GONE
+        captchaBox.visibility = VISIBLE
+        footerBox.visibility = VISIBLE
+    }
+
     fun loadingMode(){
         loadingContainer.visibility = VISIBLE
         captchaBox.visibility = GONE
         footerBox.visibility = GONE
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun contentMode(){
-        loadingContainer.visibility = GONE
-        captchaBox.visibility = VISIBLE
-        footerBox.visibility = VISIBLE
+        showContent()
+        captchaBox.setOnTouchListener(null)
+        footerBox.setOnTouchListener(null)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun disableMode(){
-
+        showContent()
+        captchaBox.setOnTouchListener { _, _ -> true }
+        footerBox.setOnTouchListener { _, _ -> true }
     }
 
     fun setToggleListener(listener: View.OnClickListener){

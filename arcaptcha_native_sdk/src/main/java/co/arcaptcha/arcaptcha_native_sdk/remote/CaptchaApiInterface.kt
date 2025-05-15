@@ -24,5 +24,11 @@ interface CaptchaApiInterface {
     fun getSlidePuzzle(@Body answer: CaptchaDataRequest): Call<SlidePuzzleData>
 
     @POST("arcaptcha/api/answer")
-    fun submitCaptchaAnswer(@Body answer: BaseAnswerRequest): Call<CaptchaAnswerResponse>
+    fun submitClassicCaptchaAnswer(@Body answer: ClassicAnswerRequest): Call<CaptchaAnswerResponse>
+
+    @POST("arcaptcha/api/answer")
+    fun submitVoiceChallengeAnswer(@Body answer: VoiceAnswerRequest): Call<CaptchaAnswerResponse>
+
+    @POST("arcaptcha/api/answer")
+    fun submitSlidePuzzleAnswer(@Body answer: SlideAnswerRequest): Call<CaptchaAnswerResponse>
 }
