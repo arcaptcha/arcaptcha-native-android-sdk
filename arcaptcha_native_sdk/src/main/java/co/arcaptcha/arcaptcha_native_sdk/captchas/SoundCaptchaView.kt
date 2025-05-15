@@ -25,6 +25,7 @@ class SoundCaptchaView @JvmOverloads constructor(
     override val captchaBox: LinearLayout = soundCaptchaView.captchaBox
 
     private lateinit var mediaPlayer: MediaPlayer
+    val confirmButton = soundCaptchaView.confirmButton
     private var captchaEditText: EditText = soundCaptchaView.captchaEditText
     private var playButton: ImageButton = soundCaptchaView.playButton
     private var isSoundPlaying = false
@@ -39,7 +40,7 @@ class SoundCaptchaView @JvmOverloads constructor(
 
         orientation = VERTICAL
 
-        soundCaptchaView.confirmButton.setOnClickListener {
+        confirmButton.setOnClickListener {
             Toast.makeText(context, "متن وارد شده: ${captchaEditText.text}",
                 Toast.LENGTH_SHORT).show()
             captchaEditText.setText("")
@@ -112,5 +113,15 @@ class SoundCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun lock() {
+        confirmButton.isEnabled = false
+        captchaEditText.isEnabled = false
+    }
+
+    override fun unlock() {
+        confirmButton.isEnabled = true
+        captchaEditText.isEnabled = true
     }
 }

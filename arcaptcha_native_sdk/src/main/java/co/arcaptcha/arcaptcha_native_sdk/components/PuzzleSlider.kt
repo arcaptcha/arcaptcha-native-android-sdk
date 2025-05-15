@@ -49,7 +49,7 @@ class PuzzleSlider @JvmOverloads constructor(
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-        if(p0 == null || p1 == null) return false
+        if(p0 == null || p1 == null || !isEnabled) return false
 
         return when (p1.action) {
             MotionEvent.ACTION_DOWN -> {

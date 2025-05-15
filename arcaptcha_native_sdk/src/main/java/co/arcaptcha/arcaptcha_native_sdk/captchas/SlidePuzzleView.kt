@@ -9,12 +9,10 @@ import android.widget.LinearLayout
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.managers.SlidePuzzleManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import com.bumptech.glide.Glide
 import co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 
 @SuppressLint("ClickableViewAccessibility")
@@ -109,5 +107,13 @@ class SlidePuzzleView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun lock() {
+        puzzleSlider.isEnabled = false
+    }
+
+    override fun unlock() {
+        puzzleSlider.isEnabled = true
     }
 }

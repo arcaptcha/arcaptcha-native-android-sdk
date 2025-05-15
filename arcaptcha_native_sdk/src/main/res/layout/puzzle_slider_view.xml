@@ -10,7 +10,7 @@
         android:id="@+id/sliderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="بازل را به جایش برگردانید"
+        android:text="پازل را به جایش برگردانید"
         android:textColor="#999"
         android:textSize="14sp"
         android:layout_centerInParent="true" />

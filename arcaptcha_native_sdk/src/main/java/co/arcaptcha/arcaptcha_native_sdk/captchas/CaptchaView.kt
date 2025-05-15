@@ -63,6 +63,8 @@ abstract class CaptchaView @JvmOverloads constructor(
     }
 
     abstract fun createSubmitRequest() : BaseAnswerRequest
+    abstract fun lock()
+    abstract fun unlock()
 
     fun initCaptcha(arcAPI: ArcaptchaAPI, outCallback: CaptchaCallback){
         this.arcaptchaApi = arcAPI
@@ -81,18 +83,22 @@ abstract class CaptchaView @JvmOverloads constructor(
         footerBox.visibility = GONE
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     fun contentMode(){
         showContent()
-        captchaBox.setOnTouchListener(null)
-        footerBox.setOnTouchListener(null)
+        isEnabled = true
+        refreshButton.isEnabled = true
+        infoButton.isEnabled = true
+        toggleButton.isEnabled = true
+        unlock()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     fun disableMode(){
         showContent()
-        captchaBox.setOnTouchListener { _, _ -> true }
-        footerBox.setOnTouchListener { _, _ -> true }
+        isEnabled = false
+        refreshButton.isEnabled = false
+        infoButton.isEnabled = false
+        toggleButton.isEnabled = false
+        lock()
     }
 
     fun setToggleListener(listener: View.OnClickListener){

@@ -22,13 +22,15 @@ class ClassicCaptchaView @JvmOverloads constructor(
     private val tbsStack: ArrayDeque<Long> = ArrayDeque()
     val classicCaptchaView = binding.classicCaptcha
     override val captchaBox: LinearLayout = classicCaptchaView.captchaBox
+    val gridView = classicCaptchaView.gridView
+    val confirmButton = classicCaptchaView.confirmButton
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
         orientation = VERTICAL
 
-        classicCaptchaView.gridView.adapter = captchaAdapter
-        classicCaptchaView.confirmButton.setOnClickListener {
+        gridView.adapter = captchaAdapter
+        confirmButton.setOnClickListener {
             submitAnswer()
         }
 
@@ -99,5 +101,15 @@ class ClassicCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun lock() {
+        confirmButton.isEnabled = false
+        captchaAdapter.isEnabled = false
+    }
+
+    override fun unlock() {
+        confirmButton.isEnabled = true
+        captchaAdapter.isEnabled = true
     }
 }

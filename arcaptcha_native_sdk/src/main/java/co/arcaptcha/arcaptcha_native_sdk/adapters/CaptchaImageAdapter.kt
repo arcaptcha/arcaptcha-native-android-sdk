@@ -15,7 +15,7 @@ class CaptchaImageAdapter(
     protected var onAdd: () -> Unit = {},
     protected var onRemove: () -> Unit = {},
 ) : BaseAdapter() {
-
+    public var isEnabled: Boolean = true
     private val selectedPositions = mutableSetOf<Int>()
 
     override fun getCount(): Int = imageUrls.size
@@ -62,6 +62,8 @@ class CaptchaImageAdapter(
         else applyNormalStyle(imageView, checkmark)
 
         view.setOnClickListener {
+            if(!isEnabled) return@setOnClickListener
+            
             if (position in selectedPositions) {
                 selectedPositions.remove(position)
                 applyNormalStyle(imageView, checkmark)
