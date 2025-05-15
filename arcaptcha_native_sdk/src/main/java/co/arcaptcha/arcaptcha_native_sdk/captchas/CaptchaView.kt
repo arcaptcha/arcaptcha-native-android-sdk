@@ -10,7 +10,8 @@ import android.widget.RelativeLayout
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
 import co.arcaptcha.arcaptcha_native_sdk.managers.CaptchaManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
-import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.BaseCaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,7 @@ import kotlinx.coroutines.cancel
 abstract class CaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : LinearLayout(context, attrs), InternalCaptchaCallback {
+) : LinearLayout(context, attrs), BaseCaptchaCallback {
     protected val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     protected val binding: CaptchaViewBinding =
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
@@ -29,6 +30,7 @@ abstract class CaptchaView @JvmOverloads constructor(
     abstract protected val manager: CaptchaManager
     protected abstract val captchaBox: LinearLayout
     protected lateinit var arcaptchaApi: ArcaptchaAPI
+    protected var challengeId: String? = null
     protected var outerCallback: CaptchaCallback? = null
     protected val loadingContainer: LinearLayout
     protected val footerBox: RelativeLayout
@@ -50,8 +52,16 @@ abstract class CaptchaView @JvmOverloads constructor(
     }
 
     fun loadCaptcha(){
+        challengeId = null
         manager.loadCaptcha(arcaptchaApi)
     }
+
+    protected fun submitAnswer(){
+        if(challengeId == null) return
+        manager.submitAnswer(createSubmitRequest())
+    }
+
+    abstract fun createSubmitRequest() : BaseAnswerRequest
 
     fun initCaptcha(arcAPI: ArcaptchaAPI, outCallback: CaptchaCallback){
         this.arcaptchaApi = arcAPI
@@ -68,6 +78,10 @@ abstract class CaptchaView @JvmOverloads constructor(
         loadingContainer.visibility = GONE
         captchaBox.visibility = VISIBLE
         footerBox.visibility = VISIBLE
+    }
+
+    fun disableMode(){
+
     }
 
     fun setToggleListener(listener: View.OnClickListener){

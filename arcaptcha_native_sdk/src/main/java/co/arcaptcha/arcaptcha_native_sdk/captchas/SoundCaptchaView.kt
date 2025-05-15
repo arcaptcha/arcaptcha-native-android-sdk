@@ -11,21 +11,24 @@ import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.managers.VoiceChallengeManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.models.VoiceChallengeCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 
 class SoundCaptchaView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : CaptchaView(context, attrs), VoiceChallengeCallback {
+) : CaptchaView(context, attrs), InternalCaptchaCallback {
     override val manager = VoiceChallengeManager(this)
     val soundCaptchaView = binding.soundCaptcha
     override val captchaBox: LinearLayout = soundCaptchaView.captchaBox
+
     private lateinit var mediaPlayer: MediaPlayer
     private var captchaEditText: EditText = soundCaptchaView.captchaEditText
     private var playButton: ImageButton = soundCaptchaView.playButton
     private var isSoundPlaying = false
-    private var audioUrl = "https://download.samplelib.com/mp3/sample-3s.mp3"
+    private var audioUrl = ""
 
     init {
         toggleButton.setImageResource(R.drawable.ic_image)
@@ -73,9 +76,15 @@ class SoundCaptchaView @JvmOverloads constructor(
         }
     }
 
-    override fun onCaptchaLoaded(data: VoiceChallengeData) {
+    override fun createSubmitRequest(): BaseAnswerRequest {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateVC", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
-        data.content?.path?.let {
+        val cContent = data.content
+        challengeId = cContent!!.challenge_id!!
+        cContent.path?.let {
             audioUrl = arcaptchaApi.getVoiceUrl(it)
         }
         outerCallback?.onCaptchaLoaded()

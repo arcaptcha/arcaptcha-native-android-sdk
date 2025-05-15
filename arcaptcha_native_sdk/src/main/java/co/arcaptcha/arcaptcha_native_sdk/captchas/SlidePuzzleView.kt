@@ -6,22 +6,22 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.managers.SlidePuzzleManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.models.SlidePuzzleCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import com.bumptech.glide.Glide
-import android.view.MotionEvent
-import android.view.View
 import co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
+import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 
 @SuppressLint("ClickableViewAccessibility")
 class SlidePuzzleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : CaptchaView(context, attrs), SlidePuzzleCallback {
+) : CaptchaView(context, attrs), InternalCaptchaCallback {
     companion object {
         const val puzzleOriginalWidth = 260
         const val puzzleOriginalHeight = 160
@@ -50,11 +50,17 @@ class SlidePuzzleView @JvmOverloads constructor(
         }
     }
 
-    override fun onCaptchaLoaded(data: SlidePuzzleData) {
-        Log.d("XQQQStateSlide", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+    override fun createSubmitRequest(): BaseAnswerRequest {
+        TODO("Not yet implemented")
+    }
 
-        if(data.content?.puzzle_background != null && data.content.puzzle_piece != null){
-            val puzzleBgUrl = arcaptchaApi.getOriginalImageUrl(data.content.puzzle_background)
+    override fun onCaptchaLoaded(data: CaptchaData) {
+        Log.d("XQQQStateSlide", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+        val cContent = data.content
+        challengeId = cContent!!.challenge_id!!
+
+        if(cContent.puzzle_background != null && data.content.puzzle_piece != null){
+            val puzzleBgUrl = arcaptchaApi.getOriginalImageUrl(cContent.puzzle_background)
             val puzzlePieceUrl = arcaptchaApi.getOriginalImageUrl(data.content.puzzle_piece)
             val puzzlePieceY = data.content.y ?: 0
 

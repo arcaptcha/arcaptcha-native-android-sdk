@@ -1,9 +1,10 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
+import android.util.Log
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import co.arcaptcha.arcaptcha_native_sdk.models.ClassicCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaAnswerResponse
+import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
@@ -17,12 +18,28 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
 
     abstract fun loadCaptcha(arcaptchaAPI: ArcaptchaAPI)
 
+    fun <T: CaptchaData> controlCaptchaData(response: Response<T>){
+        if (response.isSuccessful && response.body()?.content?.challenge_id != null) {
+            challengeId = response.body()!!.content!!.challenge_id
+            callback.onCaptchaLoaded(response.body()!!)
+            callback.onStateChanged(CaptchaState.AwaitingUserInput)
+        } else {
+            onCaptchaError("Failed to load captcha.")
+        }
+    }
+
+    fun onCaptchaError(message: String){
+        callback.onStateChanged(CaptchaState.Error)
+        callback.onError(message)
+        challengeId = null
+    }
+
     fun submitAnswer(requestBody: BaseAnswerRequest){
         if(arcaptchaAPI == null || this.challengeId == null) return
         callback.onStateChanged(CaptchaState.SubmittingSolution)
 
         val api = RetrofitClient.getInstance(arcaptchaAPI!!.apiBaseUrl).api
-        //val reqBody = ClassicAnswerRequest.getInstance(arcaptchaAPI!!, challengeId!!, imagesStatus, tbSelections)
+        Log.d("XQQQSSAnsReqBody", requestBody.toString())
 
         api.submitCaptchaAnswer(requestBody).enqueue(object : Callback<CaptchaAnswerResponse> {
             override fun onResponse(call: Call<CaptchaAnswerResponse>, response: Response<CaptchaAnswerResponse>) {
@@ -36,14 +53,12 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
                         callback.onStateChanged(CaptchaState.WrongAnswer)
                     }
                 } else {
-                    callback.onStateChanged(CaptchaState.Error)
-                    callback.onError("Failed to submit captcha.")
+                    onCaptchaError("Failed to submit captcha.")
                 }
             }
 
             override fun onFailure(call: Call<CaptchaAnswerResponse>, t: Throwable) {
-                callback.onStateChanged(CaptchaState.Error)
-                callback.onError(t.message ?: "Unknown error")
+                onCaptchaError(t.message ?: "Unknown error")
             }
         })
     }

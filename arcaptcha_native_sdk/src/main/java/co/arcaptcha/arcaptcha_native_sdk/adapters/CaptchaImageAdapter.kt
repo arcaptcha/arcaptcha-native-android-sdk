@@ -11,7 +11,9 @@ import com.bumptech.glide.Glide
 
 class CaptchaImageAdapter(
     private val context: Context,
-    private var imageUrls: List<String> = ArrayList()
+    private var imageUrls: List<String> = ArrayList(),
+    protected var onAdd: () -> Unit = {},
+    protected var onRemove: () -> Unit = {},
 ) : BaseAdapter() {
 
     private val selectedPositions = mutableSetOf<Int>()
@@ -20,6 +22,11 @@ class CaptchaImageAdapter(
     override fun getItem(position: Int): Any = imageUrls[position]
     override fun getItemId(position: Int): Long = position.toLong()
     fun getSelectedIndices(): Set<Int> = selectedPositions
+
+    fun setCallbacks(onRemove: () -> Unit, onAdd: () -> Unit){
+        this.onRemove = onRemove
+        this.onAdd = onAdd
+    }
 
     fun setImages(images: List<String>){
         this.imageUrls = images
@@ -58,9 +65,11 @@ class CaptchaImageAdapter(
             if (position in selectedPositions) {
                 selectedPositions.remove(position)
                 applyNormalStyle(imageView, checkmark)
+                onRemove()
             } else {
                 selectedPositions.add(position)
                 applyActiveStyle(imageView, checkmark)
+                onAdd()
             }
         }
 

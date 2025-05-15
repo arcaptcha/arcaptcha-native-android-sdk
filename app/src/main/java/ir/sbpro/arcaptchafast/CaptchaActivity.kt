@@ -46,7 +46,7 @@ class CaptchaActivity : AppCompatActivity() {
             }
 
             override fun onError(message: String) {
-                finishStatus(classicCaptcha, classicCaptchaStatus, "مشکلی در لود کپچا بوجود آمده است!")
+                finishStatus(classicCaptcha, classicCaptchaStatus, message)
             }
 
             override fun onWrongAnswer() {
@@ -64,7 +64,7 @@ class CaptchaActivity : AppCompatActivity() {
             }
 
             override fun onError(message: String) {
-                finishStatus(soundCaptcha, voiceChallengeStatus, "مشکلی در لود کپچا بوجود آمده است!")
+                finishStatus(soundCaptcha, voiceChallengeStatus, message)
             }
 
             override fun onWrongAnswer() {
@@ -82,7 +82,7 @@ class CaptchaActivity : AppCompatActivity() {
             }
 
             override fun onError(message: String) {
-                finishStatus(slideCaptcha, slidePuzzleStatus, "مشکلی در لود کپچا بوجود آمده است!")
+                finishStatus(slideCaptcha, slidePuzzleStatus, message)
             }
 
             override fun onWrongAnswer() {
