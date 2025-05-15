@@ -7,14 +7,13 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.Toast
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.managers.VoiceChallengeManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
-import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.VoiceAnswerRequest
 
 class SoundCaptchaView @JvmOverloads constructor(
     context: Context,
@@ -41,10 +40,9 @@ class SoundCaptchaView @JvmOverloads constructor(
         orientation = VERTICAL
 
         confirmButton.setOnClickListener {
-            Toast.makeText(context, "متن وارد شده: ${captchaEditText.text}",
-                Toast.LENGTH_SHORT).show()
-            captchaEditText.setText("")
+            if(captchaEditText.text.isEmpty()) return@setOnClickListener
             captchaEditText.clearFocus()
+            submitAnswer()
         }
     }
 
@@ -78,11 +76,12 @@ class SoundCaptchaView @JvmOverloads constructor(
     }
 
     override fun createSubmitRequest(): BaseAnswerRequest {
-        TODO("Not yet implemented")
+        return VoiceAnswerRequest(arcaptchaApi, challengeId!!, captchaEditText.text.toString())
     }
 
     override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateVC", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+        captchaEditText.setText("")
         val cContent = data.content
         challengeId = cContent!!.challenge_id!!
         cContent.path?.let {

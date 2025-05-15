@@ -1,9 +1,9 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.LinearLayout
 import co.arcaptcha.arcaptcha_native_sdk.R
@@ -14,8 +14,10 @@ import co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-@SuppressLint("ClickableViewAccessibility")
 class SlidePuzzleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
@@ -31,8 +33,8 @@ class SlidePuzzleView @JvmOverloads constructor(
     private var puzzleBgImage: ImageView = slidePuzzleView.puzzleBgImage
     private var puzzlePieceImage: ImageView = slidePuzzleView.puzzlePieceImage
     private var puzzleSlider: PuzzleSlider = slidePuzzleView.puzzleSlider
-    private var puzzleWidth = 0
-    private var puzzleHeight = 0
+    private var finalScaledAnswer = 0
+    private var finalDD = 0
 
     init {
         toggleButton.setImageResource(R.drawable.ic_image)
@@ -44,16 +46,24 @@ class SlidePuzzleView @JvmOverloads constructor(
         }
 
         puzzleSlider.setOnChangeListener {realValue, scaledValue, dd, ddt ->
-            Log.d("XQQQSSUserAnsReady", "($scaledValue, $dd)")
+            finalScaledAnswer = scaledValue
+            finalDD = dd
+            submitAnswer()
         }
     }
 
     override fun createSubmitRequest(): BaseAnswerRequest {
-        TODO("Not yet implemented")
+        Log.d("XQQQSSScaledValue", "$finalScaledAnswer")
+        return SlideAnswerRequest(arcaptchaApi, challengeId!!, finalScaledAnswer, finalDD, finalDD)
     }
 
     override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateSlide", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
+        finalScaledAnswer = 0
+        finalDD = 0
+        puzzlePieceImage.translationY = 0f
+        puzzlePieceImage.translationX = 0f
+        puzzleSlider.resetSlider()
         val cContent = data.content
         challengeId = cContent!!.challenge_id!!
 
@@ -62,14 +72,22 @@ class SlidePuzzleView @JvmOverloads constructor(
             val puzzlePieceUrl = arcaptchaApi.getOriginalImageUrl(data.content.puzzle_piece)
             val puzzlePieceY = data.content.y ?: 0
 
-            //hatman bad az visible shodane aks ha anjam shavad
-            puzzleBgImage.post {
-                val location = IntArray(2)
-                puzzleBgImage.getLocationOnScreen(location)
-                puzzleWidth = puzzleBgImage.width
-                puzzleHeight = puzzleBgImage.height
-                puzzlePieceImage.translationY = ((puzzleHeight.toFloat() / puzzleOriginalHeight) * puzzlePieceY)
+            val updatePieceLocation: (Int) -> Unit = {
+                //hatman bad az visible shodane aks ha anjam shavad
+                puzzleBgImage.post {
+                    puzzlePieceImage.translationY = ((it.toFloat() / puzzleOriginalHeight) * puzzlePieceY)
+                }
             }
+
+            puzzleBgImage.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val puzzleHeight = puzzleBgImage.height
+                    if(puzzleHeight > 0){
+                        updatePieceLocation(puzzleHeight)
+                        puzzleBgImage.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                }
+            })
 
             Glide.with(context)
                 .load(puzzleBgUrl)
@@ -84,10 +102,7 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     override fun onStateChanged(state: CaptchaState) {
         when (state) {
-            CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> {
-                loadingMode()
-                puzzleSlider.resetSlider()
-            }
+            CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
             CaptchaState.AwaitingUserInput -> contentMode()
             CaptchaState.WrongAnswer -> {}
             CaptchaState.Done -> disableMode()

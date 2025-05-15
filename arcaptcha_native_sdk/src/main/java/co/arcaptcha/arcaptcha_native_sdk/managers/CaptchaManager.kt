@@ -10,6 +10,7 @@ import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.VoiceAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
+import co.arcaptcha.arcaptcha_native_sdk.remote.CaptchaApiInterface
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +32,13 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
         }
     }
 
+    fun preLoadCaptcha(arcaptchaAPI: ArcaptchaAPI) : CaptchaApiInterface {
+        this.challengeId = null
+        this.arcaptchaAPI = arcaptchaAPI
+        callback.onStateChanged(CaptchaState.LoadingCaptcha)
+        return RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
+    }
+
     fun onCaptchaError(message: String){
         callback.onStateChanged(CaptchaState.Error)
         callback.onError(message)
@@ -42,7 +50,6 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
         callback.onStateChanged(CaptchaState.SubmittingSolution)
 
         val api = RetrofitClient.getInstance(arcaptchaAPI!!.apiBaseUrl).api
-        Log.d("XQQQSSAnsReqBody", requestBody.toString())
 
         val retrofitRequest = object : Callback<CaptchaAnswerResponse> {
             override fun onResponse(call: Call<CaptchaAnswerResponse>, response: Response<CaptchaAnswerResponse>) {
@@ -65,8 +72,10 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
             }
         }
 
+        Log.d("XQQQSS1", "submitAnswer: ")
         if(requestBody is ClassicAnswerRequest) api.submitClassicCaptchaAnswer(requestBody).enqueue(retrofitRequest)
         else if(requestBody is VoiceAnswerRequest) api.submitVoiceChallengeAnswer(requestBody).enqueue(retrofitRequest)
         else if(requestBody is SlideAnswerRequest) api.submitSlidePuzzleAnswer(requestBody).enqueue(retrofitRequest)
+        else Log.d("XQQQS2", "ELSE")
     }
 }
