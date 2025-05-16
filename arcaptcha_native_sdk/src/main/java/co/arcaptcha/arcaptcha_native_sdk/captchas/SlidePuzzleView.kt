@@ -36,6 +36,7 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
+        infoText = context.getString(R.string.info_slide_puzzle)
         orientation = VERTICAL
 
         puzzleSlider.setMaxValue(puzzleOriginalWidth.toFloat())

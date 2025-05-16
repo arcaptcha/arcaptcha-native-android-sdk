@@ -1,0 +1,5 @@
+<resources>
+    <string name="info_classic_captcha">هر عکسی را که شبیه یا مطابق توضیحات داده شده است، انتخاب کنید سپس دکمه تایید را فشار دهید</string>
+    <string name="info_voice_challenge">چیزی که می‌شنوید را اینجا وارد کنید</string>
+    <string name="info_slide_puzzle">اسلایدر را بکشید و سعی کنید تا قطعه پازل را در جایش قرار دهید</string>
+</resources>

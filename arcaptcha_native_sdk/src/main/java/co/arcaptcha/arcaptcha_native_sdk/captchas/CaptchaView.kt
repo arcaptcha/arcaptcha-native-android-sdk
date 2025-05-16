@@ -1,17 +1,18 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.RelativeLayout
+import android.widget.TextView
+import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.databinding.CaptchaViewBinding
 import co.arcaptcha.arcaptcha_native_sdk.managers.CaptchaManager
-import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.BaseCaptchaCallback
+import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +30,7 @@ abstract class CaptchaView @JvmOverloads constructor(
         CaptchaViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     abstract protected val manager: CaptchaManager
+    protected var infoText: String = ""
     protected abstract val captchaBox: LinearLayout
     protected lateinit var arcaptchaApi: ArcaptchaAPI
     protected var challengeId: String? = null
@@ -50,6 +52,23 @@ abstract class CaptchaView @JvmOverloads constructor(
         refreshButton.setOnClickListener({
             loadCaptcha()
         })
+
+        infoButton.setOnClickListener {
+            val inflater = LayoutInflater.from(context)
+            val popupView = inflater.inflate(R.layout.info_popup, null)
+            val infoTextView = popupView.findViewById<TextView>(R.id.infoTextView)
+
+            val popupWindow = PopupWindow(
+                popupView,
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT,
+                true //baraye inke ba clicke birun baste beshe
+            )
+
+            infoTextView.setText(infoText)
+            popupWindow.animationStyle = android.R.style.Animation_Dialog //optional
+            popupWindow.showAsDropDown(infoButton, -260, -120)
+        }
     }
 
     fun loadCaptcha(){
@@ -102,7 +121,7 @@ abstract class CaptchaView @JvmOverloads constructor(
         lock()
     }
 
-    fun setToggleListener(listener: View.OnClickListener){
+    fun setToggleListener(listener: OnClickListener){
         toggleButton.setOnClickListener(listener)
     }
 

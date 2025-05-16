@@ -27,6 +27,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
+        infoText = context.getString(R.string.info_classic_captcha)
         orientation = VERTICAL
 
         gridView.adapter = captchaAdapter
