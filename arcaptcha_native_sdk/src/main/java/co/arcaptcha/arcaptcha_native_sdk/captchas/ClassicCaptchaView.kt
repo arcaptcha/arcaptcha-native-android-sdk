@@ -63,8 +63,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
     override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateClassic", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
-        tbsStack.clear()
-        tbsStack.addLast(System.currentTimeMillis())
+        reset()
 
         val cContent = data.content!!
         challengeId = cContent.challenge_id!!
@@ -101,6 +100,12 @@ class ClassicCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun reset() {
+        tbsStack.clear()
+        tbsStack.addLast(System.currentTimeMillis())
+        challengeId = null
     }
 
     override fun lock() {

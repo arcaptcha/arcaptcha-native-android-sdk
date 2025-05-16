@@ -1,106 +1,101 @@
 package ir.sbpro.arcaptchafast
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.transition.Visibility
-import co.arcaptcha.arcaptcha_native_sdk.captchas.CaptchaView
-import co.arcaptcha.arcaptcha_native_sdk.captchas.ClassicCaptchaView
-import co.arcaptcha.arcaptcha_native_sdk.captchas.SlidePuzzleView
-import co.arcaptcha.arcaptcha_native_sdk.captchas.SoundCaptchaView
+import co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
+import co.arcaptcha.arcaptcha_native_sdk.containers.PuzzleContainerView
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import ir.sbpro.arcaptchafast.databinding.ActivityCaptchaBinding
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 
 class CaptchaActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityCaptchaBinding
-    protected lateinit var classicCaptcha: ClassicCaptchaView
-    protected lateinit var soundCaptcha: SoundCaptchaView
-    protected lateinit var slideCaptcha: SlidePuzzleView
-    protected lateinit var classicCaptchaStatus: TextView
-    protected lateinit var voiceChallengeStatus: TextView
-    protected lateinit var slidePuzzleStatus: TextView
+    protected lateinit var mainQuestContainer: QuestionContainerView
+    protected lateinit var altQuestContainer: QuestionContainerView
+    protected lateinit var puzzleContainer: PuzzleContainerView
+    protected lateinit var mainQuestStatus: TextView
+    protected lateinit var altQuestStatus: TextView
+    protected lateinit var puzzleStatus: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaptchaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        classicCaptcha = binding.classicCaptchaView
-        classicCaptchaStatus = binding.classicCaptchaStatus
-        soundCaptcha = binding.soundCaptchaView
-        voiceChallengeStatus = binding.voiceChallengeStatus
-        slideCaptcha = binding.slideCaptchaView
-        slidePuzzleStatus = binding.slidePuzzleStatus
+        mainQuestContainer = binding.mainQuestionContainer
+        mainQuestStatus = binding.mainQuestStatus
+        altQuestContainer = binding.altQuestionContainer
+        altQuestStatus = binding.altQuestStatus
+        puzzleContainer = binding.puzzleContainer
+        puzzleStatus = binding.slidePuzzleStatus
 
         val questArcApi = ArcaptchaAPI("afge5xjsq6", "localhost")
         val puzzleArcApi = ArcaptchaAPI("bq44zwr6cn", "localhost")
 
-        classicCaptcha.initCaptcha(questArcApi, object : CaptchaCallback {
+        mainQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer() {
-                showStatus(classicCaptchaStatus, "پازل حل شد!")
+                showStatus(mainQuestStatus, "پازل حل شد!")
             }
 
             override fun onError(message: String) {
-                finishStatus(classicCaptcha, classicCaptchaStatus, message)
+                finishStatus(mainQuestContainer, mainQuestStatus, message)
             }
 
             override fun onWrongAnswer() {
-                classicCaptcha.loadCaptcha()
+                mainQuestContainer.loadCaptcha()
             }
 
             override fun onStateChanged(state: CaptchaState) {
-                if(state == CaptchaState.LoadingCaptcha) hideStatus(classicCaptchaStatus)
+                if(state == CaptchaState.LoadingCaptcha) hideStatus(mainQuestStatus)
             }
         })
 
-        soundCaptcha.initCaptcha(questArcApi, object : CaptchaCallback {
+        altQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer() {
-                showStatus(voiceChallengeStatus, "پازل حل شد!")
+                showStatus(altQuestStatus, "پازل حل شد!")
             }
 
             override fun onError(message: String) {
-                finishStatus(soundCaptcha, voiceChallengeStatus, message)
+                finishStatus(altQuestContainer, altQuestStatus, message)
             }
 
             override fun onWrongAnswer() {
-                soundCaptcha.loadCaptcha()
+                altQuestContainer.loadCaptcha()
             }
 
             override fun onStateChanged(state: CaptchaState) {
-                if(state == CaptchaState.LoadingCaptcha) hideStatus(voiceChallengeStatus)
+                if(state == CaptchaState.LoadingCaptcha) hideStatus(altQuestStatus)
             }
         })
 
-        slideCaptcha.initCaptcha(puzzleArcApi, object : CaptchaCallback {
+        puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer() {
-                showStatus(slidePuzzleStatus, "پازل حل شد!")
+                showStatus(puzzleStatus, "پازل حل شد!")
             }
 
             override fun onError(message: String) {
-                finishStatus(slideCaptcha, slidePuzzleStatus, message)
+                finishStatus(puzzleContainer, puzzleStatus, message)
             }
 
             override fun onWrongAnswer() {
-                slideCaptcha.loadCaptcha()
+                puzzleContainer.loadCaptcha()
             }
 
             override fun onStateChanged(state: CaptchaState) {
-                if(state == CaptchaState.LoadingCaptcha) hideStatus(slidePuzzleStatus)
+                if(state == CaptchaState.LoadingCaptcha) hideStatus(puzzleStatus)
             }
         })
 
-        classicCaptcha.loadCaptcha()
-        soundCaptcha.loadCaptcha()
-        slideCaptcha.loadCaptcha()
+        mainQuestContainer.loadImageCaptcha()
+        altQuestContainer.loadVoiceCaptcha()
+        puzzleContainer.loadCaptcha()
     }
 
-    fun finishStatus(captcha: CaptchaView, tv: TextView, message: String){
-        captcha.visibility = View.GONE
+    fun finishStatus(container: View, tv: TextView, message: String){
+        container.visibility = View.GONE
         tv.setText(message)
         tv.visibility = View.VISIBLE
     }

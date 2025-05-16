@@ -81,7 +81,7 @@ class SoundCaptchaView @JvmOverloads constructor(
 
     override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateVC", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
-        captchaEditText.setText("")
+        reset()
         val cContent = data.content
         challengeId = cContent!!.challenge_id!!
         cContent.path?.let {
@@ -112,6 +112,11 @@ class SoundCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun reset() {
+        captchaEditText.setText("")
+        challengeId = null
     }
 
     override fun lock() {

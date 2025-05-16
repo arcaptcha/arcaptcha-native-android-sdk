@@ -14,13 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp" >
-            <co.arcaptcha.arcaptcha_native_sdk.captchas.ClassicCaptchaView
-                android:id="@+id/classicCaptchaView"
+            <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
+                android:id="@+id/mainQuestionContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/classicCaptchaStatus"
+                android:id="@+id/mainQuestStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -38,13 +38,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp" >
 
-            <co.arcaptcha.arcaptcha_native_sdk.captchas.SoundCaptchaView
-                android:id="@+id/soundCaptchaView"
+            <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
+                android:id="@+id/altQuestionContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/voiceChallengeStatus"
+                android:id="@+id/altQuestStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -62,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp" >
 
-            <co.arcaptcha.arcaptcha_native_sdk.captchas.SlidePuzzleView
-                android:id="@+id/slideCaptchaView"
+            <co.arcaptcha.arcaptcha_native_sdk.containers.PuzzleContainerView
+                android:id="@+id/puzzleContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

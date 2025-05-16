@@ -35,7 +35,7 @@ class SlidePuzzleView @JvmOverloads constructor(
     private var finalDD = 0
 
     init {
-        toggleButton.setImageResource(R.drawable.ic_image)
+        toggleButton.setImageResource(R.drawable.ic_volume)
         orientation = VERTICAL
 
         puzzleSlider.setMaxValue(puzzleOriginalWidth.toFloat())
@@ -57,11 +57,7 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     override fun onCaptchaLoaded(data: CaptchaData) {
         Log.d("XQQQStateSlide", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
-        finalScaledAnswer = 0
-        finalDD = 0
-        puzzlePieceImage.translationY = 0f
-        puzzlePieceImage.translationX = 0f
-        puzzleSlider.resetSlider()
+        reset()
         val cContent = data.content
         challengeId = cContent!!.challenge_id!!
 
@@ -120,6 +116,15 @@ class SlidePuzzleView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun reset() {
+        finalScaledAnswer = 0
+        finalDD = 0
+        puzzlePieceImage.translationY = 0f
+        puzzlePieceImage.translationX = 0f
+        puzzleSlider.resetSlider()
+        challengeId = null
     }
 
     override fun lock() {

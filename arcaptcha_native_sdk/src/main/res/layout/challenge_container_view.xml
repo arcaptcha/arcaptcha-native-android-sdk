@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/captchaBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <co.arcaptcha.arcaptcha_native_sdk.captchas.ClassicCaptchaView
+        android:visibility="gone"
+        android:id="@+id/classicCaptchaView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <co.arcaptcha.arcaptcha_native_sdk.captchas.SoundCaptchaView
+        android:visibility="gone"
+        android:id="@+id/soundCaptchaView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <co.arcaptcha.arcaptcha_native_sdk.captchas.SlidePuzzleView
+        android:visibility="gone"
+        android:id="@+id/slideCaptchaView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

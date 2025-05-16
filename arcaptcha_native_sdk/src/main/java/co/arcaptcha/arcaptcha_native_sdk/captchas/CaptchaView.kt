@@ -65,6 +65,7 @@ abstract class CaptchaView @JvmOverloads constructor(
     abstract fun createSubmitRequest() : BaseAnswerRequest
     abstract fun lock()
     abstract fun unlock()
+    abstract fun reset()
 
     fun initCaptcha(arcAPI: ArcaptchaAPI, outCallback: CaptchaCallback){
         this.arcaptchaApi = arcAPI

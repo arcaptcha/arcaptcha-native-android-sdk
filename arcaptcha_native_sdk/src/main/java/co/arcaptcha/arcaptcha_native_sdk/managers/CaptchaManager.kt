@@ -1,6 +1,5 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
-import android.util.Log
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.responses.CaptchaAnswerResponse
