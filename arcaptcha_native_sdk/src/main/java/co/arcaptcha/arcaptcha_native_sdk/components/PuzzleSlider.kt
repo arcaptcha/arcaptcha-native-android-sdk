@@ -42,8 +42,8 @@ class PuzzleSlider @JvmOverloads constructor(
     }
 
     public fun setMaxValue(value: Float){
-        //30 = nesfe size thumb yani nesfe 60 be dp ke dar file xml set shode ast
-        this.sliderMaxValue = value - 30
+        //30 = size thumb be dp ke dar file xml set shode ast
+        this.sliderMaxValue = value - 60
     }
 
     fun resetSlider(){
