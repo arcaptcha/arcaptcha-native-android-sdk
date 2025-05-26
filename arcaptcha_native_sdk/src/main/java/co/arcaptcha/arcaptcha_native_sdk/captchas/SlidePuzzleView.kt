@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewTreeObserver
@@ -117,6 +118,10 @@ class SlidePuzzleView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun applyDefaultFont(typeface: Typeface) {
+        //confirmButton.setTypeface(typeface)
     }
 
     override fun reset() {

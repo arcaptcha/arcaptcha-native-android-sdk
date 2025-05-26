@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageButton
@@ -15,6 +16,8 @@ import co.arcaptcha.arcaptcha_native_sdk.models.BaseCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
+import co.arcaptcha.arcaptcha_native_sdk.themes.AppFont
+import co.arcaptcha.arcaptcha_native_sdk.themes.FontManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -37,6 +40,7 @@ abstract class CaptchaView @JvmOverloads constructor(
     protected var outerCallback: CaptchaCallback? = null
     protected val loadingContainer: LinearLayout
     protected val footerBox: RelativeLayout
+    protected val txvArcLicense: TextView
     protected val refreshButton: ImageButton
     protected val toggleButton: ImageButton
     protected val infoButton: ImageButton
@@ -45,6 +49,7 @@ abstract class CaptchaView @JvmOverloads constructor(
         orientation = VERTICAL
         loadingContainer = binding.loadingContainer
         footerBox = binding.footer
+        txvArcLicense = binding.txvArcLicense
         refreshButton = binding.refreshButton
         toggleButton = binding.toggleButton
         infoButton = binding.infoButton
@@ -52,6 +57,8 @@ abstract class CaptchaView @JvmOverloads constructor(
         refreshButton.setOnClickListener({
             loadCaptcha()
         })
+
+        txvArcLicense.setTypeface(getDefaultTypeface())
 
         infoButton.setOnClickListener {
             val inflater = LayoutInflater.from(context)
@@ -71,6 +78,10 @@ abstract class CaptchaView @JvmOverloads constructor(
         }
     }
 
+    private fun getDefaultTypeface(): Typeface {
+        return FontManager.getTypeface(context, AppFont.YEKAN)
+    }
+
     fun loadCaptcha(){
         challengeId = null
         manager.loadCaptcha(arcaptchaApi)
@@ -85,10 +96,12 @@ abstract class CaptchaView @JvmOverloads constructor(
     abstract fun lock()
     abstract fun unlock()
     abstract fun reset()
+    abstract fun applyDefaultFont(typeface: Typeface)
 
     fun initCaptcha(arcAPI: ArcaptchaAPI, outCallback: CaptchaCallback){
         this.arcaptchaApi = arcAPI
         this.outerCallback = outCallback
+        applyDefaultFont(getDefaultTypeface())
     }
 
     fun showContent(){

@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.LinearLayout
@@ -11,6 +12,8 @@ import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.themes.AppFont
+import co.arcaptcha.arcaptcha_native_sdk.themes.FontManager
 
 
 class ClassicCaptchaView @JvmOverloads constructor(
@@ -21,6 +24,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
     private val captchaAdapter = CaptchaImageAdapter(context)
     private val tbsStack: ArrayDeque<Long> = ArrayDeque()
     val classicCaptchaView = binding.classicCaptcha
+    val captchaMessage = classicCaptchaView.captchaMessage
     override val captchaBox: LinearLayout = classicCaptchaView.captchaBox
     val gridView = classicCaptchaView.gridView
     val confirmButton = classicCaptchaView.confirmButton
@@ -31,6 +35,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
         orientation = VERTICAL
 
         gridView.adapter = captchaAdapter
+
         confirmButton.setOnClickListener {
             submitAnswer()
         }
@@ -68,7 +73,7 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
         val cContent = data.content!!
         challengeId = cContent.challenge_id!!
-        classicCaptchaView.captchaMessage.setText("تصاویر شامل ${cContent.category} را انتخاب کنید")
+        captchaMessage.setText("تصاویر شامل ${cContent.category} را انتخاب کنید")
         cContent.image_urls?.let {
             val finalImageUrls = it.map { item ->
                 arcaptchaApi.getImageUrl(item)
@@ -101,6 +106,11 @@ class ClassicCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun applyDefaultFont(typeface: Typeface) {
+        captchaMessage.setTypeface(typeface)
+        confirmButton.setTypeface(typeface)
     }
 
     override fun reset() {

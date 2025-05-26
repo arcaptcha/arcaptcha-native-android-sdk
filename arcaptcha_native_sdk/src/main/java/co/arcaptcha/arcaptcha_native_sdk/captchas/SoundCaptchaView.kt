@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
+import android.graphics.Typeface
 import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.util.Log
@@ -113,6 +114,10 @@ class SoundCaptchaView @JvmOverloads constructor(
     override fun onError(message: String) {
         Log.d("XQQQStateError", message)
         outerCallback?.onError(message)
+    }
+
+    override fun applyDefaultFont(typeface: Typeface) {
+        confirmButton.setTypeface(typeface)
     }
 
     override fun reset() {
