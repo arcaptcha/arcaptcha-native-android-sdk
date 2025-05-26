@@ -11,8 +11,8 @@
         android:layoutDirection="ltr"
         android:id="@+id/imagesContainer"
         android:layout_gravity="center_horizontal"
-        android:layout_width="325dp"
-        android:layout_height="200dp">
+        android:layout_width="299dp"
+        android:layout_height="184dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/puzzleBgImage"
@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/puzzlePieceImage"
-            android:layout_width="62.5dp"
-            android:layout_height="53.75dp"
+            android:layout_width="57.5dp"
+            android:layout_height="49.45dp"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="0dp" />
     </FrameLayout>
@@ -35,6 +35,8 @@
         android:id="@+id/puzzleSlider"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
 </LinearLayout>

@@ -12,8 +12,6 @@ import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
-import co.arcaptcha.arcaptcha_native_sdk.themes.AppFont
-import co.arcaptcha.arcaptcha_native_sdk.themes.FontManager
 
 
 class ClassicCaptchaView @JvmOverloads constructor(

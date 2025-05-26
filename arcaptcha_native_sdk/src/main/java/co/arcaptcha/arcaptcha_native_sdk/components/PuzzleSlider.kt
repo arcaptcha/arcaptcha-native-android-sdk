@@ -2,12 +2,14 @@ package co.arcaptcha.arcaptcha_native_sdk.components
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import co.arcaptcha.arcaptcha_native_sdk.databinding.PuzzleSliderViewBinding
 import kotlin.math.roundToInt
 
@@ -21,6 +23,7 @@ class PuzzleSlider @JvmOverloads constructor(
         PuzzleSliderViewBinding.inflate(LayoutInflater.from(context), this, true)
     private var sliderContainer: RelativeLayout = binding.sliderContainer
     private var sliderThumb: ImageView = binding.sliderThumb
+    private var sliderText: TextView = binding.sliderText
 
     public var startTime = 0L
     protected var sliderMaxValue = 0f
@@ -42,8 +45,8 @@ class PuzzleSlider @JvmOverloads constructor(
     }
 
     public fun setMaxValue(value: Float){
-        //30 = size thumb be dp ke dar file xml set shode ast
-        this.sliderMaxValue = value - 60
+        //50 = size thumb be dp ke dar file xml set shode ast
+        this.sliderMaxValue = value - 50
     }
 
     fun resetSlider(){
@@ -97,5 +100,9 @@ class PuzzleSlider @JvmOverloads constructor(
 
             else -> false
         }
+    }
+
+    fun setTypeface(typeface: Typeface){
+        sliderText.setTypeface(typeface)
     }
 }

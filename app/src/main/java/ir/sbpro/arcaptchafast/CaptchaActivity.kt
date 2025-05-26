@@ -89,6 +89,21 @@ class CaptchaActivity : AppCompatActivity() {
             }
         })
 
+        mainQuestStatus.setOnClickListener {
+            mainQuestContainer.visibility = View.VISIBLE
+            mainQuestContainer.loadCaptcha()
+        }
+
+        altQuestStatus.setOnClickListener {
+            altQuestContainer.visibility = View.VISIBLE
+            altQuestContainer.loadCaptcha()
+        }
+
+        puzzleStatus.setOnClickListener {
+            puzzleContainer.visibility = View.VISIBLE
+            puzzleContainer.loadCaptcha()
+        }
+
         mainQuestContainer.loadImageCaptcha()
         altQuestContainer.loadVoiceCaptcha()
         puzzleContainer.loadCaptcha()

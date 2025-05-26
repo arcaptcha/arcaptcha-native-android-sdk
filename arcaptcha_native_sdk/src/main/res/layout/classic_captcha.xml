@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:visibility="gone"
     android:id="@+id/captchaBox"
     android:layout_width="wrap_content"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="تصاویر شامل کامیون زباله را انتخاب کنید."
         android:textColor="#5555AA"
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="12dp"/>
 
@@ -28,12 +29,16 @@
         android:clipToPadding="false"
         android:padding="4dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="تایید"
         android:layout_marginTop="12dp"
+        app:icon="@drawable/ic_tick"
+        app:iconGravity="textStart"
+        app:iconSize="24dp"
+        android:textSize="16sp"
         android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"/>
 </LinearLayout>

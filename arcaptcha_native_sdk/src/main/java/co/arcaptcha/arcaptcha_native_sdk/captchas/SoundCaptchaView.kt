@@ -117,6 +117,7 @@ class SoundCaptchaView @JvmOverloads constructor(
     }
 
     override fun applyDefaultFont(typeface: Typeface) {
+        captchaEditText.setTypeface(typeface)
         confirmButton.setTypeface(typeface)
     }
 

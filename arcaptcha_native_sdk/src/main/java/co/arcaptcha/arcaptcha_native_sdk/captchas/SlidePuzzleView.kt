@@ -121,7 +121,7 @@ class SlidePuzzleView @JvmOverloads constructor(
     }
 
     override fun applyDefaultFont(typeface: Typeface) {
-        //confirmButton.setTypeface(typeface)
+        puzzleSlider.setTypeface(typeface)
     }
 
     override fun reset() {
