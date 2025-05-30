@@ -75,7 +75,7 @@
                 <ImageButton
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="2dp"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"
@@ -87,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:text="قدرت گرفته از آرکپچا"
                     android:textColor="@color/footer_content_color"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
+                    android:letterSpacing="-0.075"
                     android:layout_gravity="center" />
             </LinearLayout>
 
@@ -102,7 +103,7 @@
                     android:id="@+id/infoButton"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginEnd="7dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"
@@ -112,8 +113,8 @@
                     android:id="@+id/toggleButton"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"
@@ -123,7 +124,7 @@
                     android:id="@+id/refreshButton"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="6dp"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"

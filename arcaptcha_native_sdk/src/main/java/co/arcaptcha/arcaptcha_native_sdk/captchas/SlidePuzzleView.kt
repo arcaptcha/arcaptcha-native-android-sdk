@@ -134,7 +134,7 @@ class SlidePuzzleView @JvmOverloads constructor(
                             slideMessage.visibility = GONE
                             finishCallback()
                         }.start()
-                }, 750)
+                }, 800)
             }.start()
     }
 
@@ -168,6 +168,7 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     override fun applyDefaultFont(typeface: Typeface) {
         puzzleSlider.setTypeface(typeface)
+        slideMessage.setTypeface(typeface)
     }
 
     override fun reset() {

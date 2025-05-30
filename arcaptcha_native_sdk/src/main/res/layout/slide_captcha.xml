@@ -37,7 +37,10 @@
             android:textSize="17sp"
             android:background="#C52B56"
             android:layout_gravity="bottom"
-            android:padding="3dp" />
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp" />
     </FrameLayout>
 
     <co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
