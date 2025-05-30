@@ -5,17 +5,21 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewTreeObserver
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.graphics.toColorInt
 import co.arcaptcha.arcaptcha_native_sdk.R
+import co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
 import co.arcaptcha.arcaptcha_native_sdk.managers.SlidePuzzleManager
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
-import com.bumptech.glide.Glide
-import co.arcaptcha.arcaptcha_native_sdk.components.PuzzleSlider
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
+import com.bumptech.glide.Glide
 
 class SlidePuzzleView @JvmOverloads constructor(
     context: Context,
@@ -31,6 +35,7 @@ class SlidePuzzleView @JvmOverloads constructor(
     override val captchaBox: LinearLayout = slidePuzzleView.captchaBox
     private var puzzleBgImage: ImageView = slidePuzzleView.puzzleBgImage
     private var puzzlePieceImage: ImageView = slidePuzzleView.puzzlePieceImage
+    private var slideMessage: TextView = slidePuzzleView.slideMessage
     private var puzzleSlider: PuzzleSlider = slidePuzzleView.puzzleSlider
     private var finalScaledAnswer = 0
     private var finalDD = 0
@@ -96,6 +101,43 @@ class SlidePuzzleView @JvmOverloads constructor(
         outerCallback?.onCaptchaLoaded()
     }
 
+    fun animateMessage(isCorrect: Boolean, finishCallback: () -> Unit){
+        if(isCorrect){
+            slideMessage.setBackgroundColor("#06966a".toColorInt())
+            slideMessage.setTextColor("#b7e6e4".toColorInt())
+            slideMessage.setText("چالش با موفقیت حل شد")
+        }
+        else {
+            slideMessage.setBackgroundColor("#ed4542".toColorInt())
+            slideMessage.setTextColor("#432721".toColorInt())
+            slideMessage.setText("لطفا پازل را در جایش قرار دهید")
+        }
+
+        disableMode()
+        slideMessage.alpha = 0f
+        slideMessage.translationY = 100f
+        slideMessage.visibility = VISIBLE
+
+        slideMessage.animate()
+            .translationY(0f)
+            .alpha(1f)
+            .setDuration(300)
+            .setInterpolator(DecelerateInterpolator())
+            .withEndAction {
+                slideMessage.postDelayed({
+                    slideMessage.animate()
+                        .translationY(100f)
+                        .alpha(0f)
+                        .setDuration(300)
+                        .setInterpolator(AccelerateInterpolator())
+                        .withEndAction {
+                            slideMessage.visibility = GONE
+                            finishCallback()
+                        }.start()
+                }, 750)
+            }.start()
+    }
+
     override fun onStateChanged(state: CaptchaState) {
         when (state) {
             CaptchaState.LoadingCaptcha, CaptchaState.SubmittingSolution -> loadingMode()
@@ -108,11 +150,15 @@ class SlidePuzzleView @JvmOverloads constructor(
     }
 
     override fun onCorrectAnswer() {
-        outerCallback?.onCorrectAnswer()
+        animateMessage(true, {
+            outerCallback?.onCorrectAnswer()
+        })
     }
 
     override fun onWrongAnswer() {
-        outerCallback?.onWrongAnswer()
+        animateMessage(false, {
+            outerCallback?.onWrongAnswer()
+        })
     }
 
     override fun onError(message: String) {

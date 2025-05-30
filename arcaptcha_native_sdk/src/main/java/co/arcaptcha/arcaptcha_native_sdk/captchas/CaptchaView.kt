@@ -124,12 +124,15 @@ abstract class CaptchaView @JvmOverloads constructor(
         loadingContainer.visibility = GONE
         captchaBox.visibility = VISIBLE
         footerBox.visibility = VISIBLE
+        captchaBox.alpha = 1f
+        footerBox.alpha = 1f
     }
 
     fun loadingMode(){
+        disableMode()
         loadingContainer.visibility = VISIBLE
-        captchaBox.visibility = GONE
-        footerBox.visibility = GONE
+        captchaBox.alpha = 0.25f
+        footerBox.alpha = 0.25f
     }
 
     fun contentMode(){

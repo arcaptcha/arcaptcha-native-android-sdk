@@ -17,41 +17,47 @@
         android:layout_gravity="center"
         android:layout_margin="8dp">
 
-        <LinearLayout
-            android:id="@+id/loadingContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/rounded_container"
-            android:layout_gravity="center">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/checkmarkIcon"
-                android:layout_width="80dp"
+            <LinearLayout
+                android:id="@+id/loadingContainer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo_arcaptcha" />
+                android:orientation="vertical"
+                android:background="@drawable/rounded_container"
+                android:layout_gravity="center">
 
-            <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
-                style="@style/SpinKitView.Large.ThreeBounce"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                app:SpinKit_Color="@color/arcaptcha_logo_color" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/arcLogo"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logo_arcaptcha" />
 
-        <include
-            android:id="@+id/classicCaptcha"
-            layout="@layout/classic_captcha" />
+                <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    style="@style/SpinKitView.Large.ThreeBounce"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    app:SpinKit_Color="@color/arcaptcha_logo_color" />
+            </LinearLayout>
 
-        <include
-            android:id="@+id/soundCaptcha"
-            layout="@layout/sound_captcha" />
+            <include
+                android:id="@+id/classicCaptcha"
+                layout="@layout/classic_captcha" />
 
-        <include
-            android:id="@+id/slideCaptcha"
-            layout="@layout/slide_captcha" />
+            <include
+                android:id="@+id/soundCaptcha"
+                layout="@layout/sound_captcha" />
+
+            <include
+                android:id="@+id/slideCaptcha"
+                layout="@layout/slide_captcha" />
+
+        </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/footer"
