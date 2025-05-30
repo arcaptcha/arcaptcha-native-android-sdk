@@ -12,6 +12,7 @@ import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.ClassicAnswerRequest
+import co.arcaptcha.arcaptcha_native_sdk.utils.ScreenUtils
 
 
 class ClassicCaptchaView @JvmOverloads constructor(
@@ -77,9 +78,15 @@ class ClassicCaptchaView @JvmOverloads constructor(
                 arcaptchaApi.getImageUrl(item)
             }
 
+            val targetGridWidth = containerAvailableWidth - ScreenUtils.dpToPx(context, 18)
+            captchaAdapter.gridWidth = targetGridWidth
             captchaAdapter.setImages(finalImageUrls)
+
+            val height = captchaAdapter.calculateGridHeight()
+            gridView.layoutParams.height = height
+            gridView.requestLayout()
+            outerCallback?.onCaptchaLoaded()
         }
-        outerCallback?.onCaptchaLoaded()
     }
 
     override fun onStateChanged(state: CaptchaState) {

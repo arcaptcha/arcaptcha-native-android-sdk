@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewTreeObserver
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -18,6 +19,7 @@ import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.themes.AppFont
 import co.arcaptcha.arcaptcha_native_sdk.themes.FontManager
+import co.arcaptcha.arcaptcha_native_sdk.utils.ScreenUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -38,15 +40,19 @@ abstract class CaptchaView @JvmOverloads constructor(
     protected lateinit var arcaptchaApi: ArcaptchaAPI
     protected var challengeId: String? = null
     protected var outerCallback: CaptchaCallback? = null
+    protected val captchaContainer: LinearLayout
     protected val loadingContainer: LinearLayout
     protected val footerBox: RelativeLayout
     protected val txvArcLicense: TextView
     protected val refreshButton: ImageButton
     protected val toggleButton: ImageButton
     protected val infoButton: ImageButton
+    protected var containerWidth: Int = 0
+    protected var containerAvailableWidth: Int = 0
 
     init {
         orientation = VERTICAL
+        captchaContainer = binding.captchaContainer
         loadingContainer = binding.loadingContainer
         footerBox = binding.footer
         txvArcLicense = binding.txvArcLicense
@@ -76,6 +82,16 @@ abstract class CaptchaView @JvmOverloads constructor(
             popupWindow.animationStyle = android.R.style.Animation_Dialog //optional
             popupWindow.showAsDropDown(infoButton, -260, -120)
         }
+
+        captchaContainer.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val ngw = captchaContainer.width
+                if(ngw > containerWidth) {
+                    containerWidth = ngw
+                    containerAvailableWidth = ngw - ScreenUtils.dpToPx(context, 16)
+                }
+            }
+        })
     }
 
     private fun getDefaultTypeface(): Typeface {
