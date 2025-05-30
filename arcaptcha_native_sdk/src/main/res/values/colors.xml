@@ -3,6 +3,7 @@
     <color name="edit_text_background">#f0f0f7</color>
     <color name="edit_text_border_default">#f0f0f7</color>
     <color name="edit_text_border_focused">#978ff2</color>
+    <color name="main_button_color">#978FF2</color>
     <color name="hint_color">#B7B7D0</color>
     <color name="arcaptcha_logo_color">#948ced</color>
     <color name="footer_content_color">#B0B1C5</color>
