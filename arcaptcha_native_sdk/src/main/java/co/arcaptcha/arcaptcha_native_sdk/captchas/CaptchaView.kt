@@ -100,7 +100,7 @@ abstract class CaptchaView @JvmOverloads constructor(
 
     fun loadCaptcha(){
         challengeId = null
-        manager.loadCaptcha(arcaptchaApi)
+        manager.loadCaptcha(coroutineScope, arcaptchaApi)
     }
 
     protected fun submitAnswer(){
@@ -131,8 +131,8 @@ abstract class CaptchaView @JvmOverloads constructor(
     fun loadingMode(){
         disableMode()
         loadingContainer.visibility = VISIBLE
-        captchaBox.alpha = 0.25f
-        footerBox.alpha = 0.25f
+        captchaBox.alpha = 0.16f
+        footerBox.alpha = 0.16f
     }
 
     fun contentMode(){

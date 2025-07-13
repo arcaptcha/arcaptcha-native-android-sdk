@@ -132,10 +132,12 @@ class SoundCaptchaView @JvmOverloads constructor(
     override fun lock() {
         confirmButton.isEnabled = false
         captchaEditText.isEnabled = false
+        confirmButton.icon.alpha = (0.5f * 255).toInt()
     }
 
     override fun unlock() {
         confirmButton.isEnabled = true
         captchaEditText.isEnabled = true
+        confirmButton.icon.alpha = 255
     }
 }

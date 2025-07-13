@@ -13,6 +13,7 @@ import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
 import co.arcaptcha.arcaptcha_native_sdk.remote.CaptchaApiInterface
 import co.arcaptcha.arcaptcha_native_sdk.remote.RetrofitClient
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +23,7 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
     protected var arcaptchaAPI: ArcaptchaAPI? = null
     protected var challengeId: String? = null
 
-    abstract fun loadCaptcha(arcaptchaAPI: ArcaptchaAPI)
+    abstract fun loadCaptcha(coroutineScope: CoroutineScope, arcaptchaAPI: ArcaptchaAPI)
 
     fun <T: CaptchaData> controlCaptchaData(response: Response<T>){
         if (response.isSuccessful && response.body()?.content?.challenge_id != null) {

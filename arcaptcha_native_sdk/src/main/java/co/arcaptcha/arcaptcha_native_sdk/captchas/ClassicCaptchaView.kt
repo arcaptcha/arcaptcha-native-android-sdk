@@ -144,10 +144,12 @@ class ClassicCaptchaView @JvmOverloads constructor(
     override fun lock() {
         confirmButton.isEnabled = false
         captchaAdapter.isEnabled = false
+        confirmButton.icon.alpha = (0.5f * 255).toInt()
     }
 
     override fun unlock() {
         confirmButton.isEnabled = true
         captchaAdapter.isEnabled = true
+        confirmButton.icon.alpha = 255
     }
 }

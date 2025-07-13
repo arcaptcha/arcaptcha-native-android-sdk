@@ -4,9 +4,10 @@ import kotlinx.coroutines.delay
 
 class FakeNetwork {
     companion object {
-        suspend fun request(successCallback: () -> Unit, errorCallback: () -> Unit = {}){
-            val seconds : Long = 1 + ((0 until 5).random()).toLong()
-            delay(seconds * 1000)
+        suspend fun request(constDelay: Int, varDelay: Int, successCallback: () -> Unit){
+            val seconds : Long = constDelay +
+                    if(varDelay > 0) ((0 until varDelay).random()).toLong() else 0L
+            if(seconds > 0) delay(seconds * 1000)
             successCallback()
         }
     }

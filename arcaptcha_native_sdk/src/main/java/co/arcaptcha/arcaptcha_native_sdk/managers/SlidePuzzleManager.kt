@@ -5,12 +5,13 @@ import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.CaptchaDataRequest
 import co.arcaptcha.arcaptcha_native_sdk.remote.ArcaptchaAPI
+import kotlinx.coroutines.CoroutineScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SlidePuzzleManager(callback: InternalCaptchaCallback) : CaptchaManager(callback) {
-    override fun loadCaptcha(arcaptchaAPI: ArcaptchaAPI) {
+    override fun loadCaptcha(coroutineScope: CoroutineScope, arcaptchaAPI: ArcaptchaAPI) {
         val api = preLoadCaptcha(arcaptchaAPI)
         val reqBody = CaptchaDataRequest(arcaptchaAPI, BaseRequest.SLIDE_CAPTCHA_TYPE)
 
