@@ -55,6 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="تایید"
+        android:contentDescription = "تایید"
         android:layout_marginTop="12dp"
         app:icon="@drawable/ic_tick"
         app:iconGravity="textStart"

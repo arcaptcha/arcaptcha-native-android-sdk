@@ -42,6 +42,8 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
+        toggleButton.contentDescription = "کپچای صوتی"
+
         infoText = context.getString(R.string.info_slide_puzzle)
         orientation = VERTICAL
 

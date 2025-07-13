@@ -34,6 +34,8 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
     init {
         toggleButton.setImageResource(R.drawable.ic_volume)
+        toggleButton.contentDescription = "کپچای صوتی"
+
         infoText = context.getString(R.string.info_classic_captcha)
         orientation = VERTICAL
 

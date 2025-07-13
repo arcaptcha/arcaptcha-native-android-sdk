@@ -33,6 +33,8 @@ class SoundCaptchaView @JvmOverloads constructor(
 
     init {
         toggleButton.setImageResource(R.drawable.ic_image)
+        toggleButton.contentDescription = "کپچای تصویری"
+
         infoText = context.getString(R.string.info_voice_challenge)
 
         playButton.setOnClickListener {
