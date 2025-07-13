@@ -2,9 +2,13 @@ package co.arcaptcha.arcaptcha_native_sdk.captchas
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.adapters.CaptchaImageAdapter
 import co.arcaptcha.arcaptcha_native_sdk.managers.ClassicCaptchaManager
@@ -72,7 +76,18 @@ class ClassicCaptchaView @JvmOverloads constructor(
 
         val cContent = data.content!!
         challengeId = cContent.challenge_id!!
-        captchaMessage.setText("تصاویر شامل ${cContent.category} را انتخاب کنید")
+
+        var title = "تصاویر شامل "
+        val cateStart = title.length
+        val cateEnd = cateStart + (cContent.category?.length ?: 0)
+        title = title + cContent.category
+        title = title + " را انتخاب کنید."
+        val spannableTitle = SpannableString(title)
+
+        val cateColor = ContextCompat.getColor(context, R.color.main_button_color)
+        spannableTitle.setSpan(ForegroundColorSpan(cateColor), cateStart, cateEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        captchaMessage.setText(spannableTitle)
+
         cContent.image_urls?.let {
             val finalImageUrls = it.map { item ->
                 arcaptchaApi.getImageUrl(item)

@@ -88,6 +88,7 @@ class SoundCaptchaView @JvmOverloads constructor(
         challengeId = cContent!!.challenge_id!!
         cContent.path?.let {
             audioUrl = arcaptchaApi.getVoiceUrl(it)
+            playAudio()
         }
         outerCallback?.onCaptchaLoaded()
     }
