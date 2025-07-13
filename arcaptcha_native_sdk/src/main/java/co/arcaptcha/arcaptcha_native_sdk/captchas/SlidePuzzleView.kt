@@ -32,6 +32,7 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     override val manager = SlidePuzzleManager(this)
     val slidePuzzleView = binding.slideCaptcha
+    val captchaMessage = slidePuzzleView.captchaMessage
     override val captchaBox: LinearLayout = slidePuzzleView.captchaBox
     private var puzzleBgImage: ImageView = slidePuzzleView.puzzleBgImage
     private var puzzlePieceImage: ImageView = slidePuzzleView.puzzlePieceImage
@@ -65,7 +66,6 @@ class SlidePuzzleView @JvmOverloads constructor(
     }
 
     override fun onCaptchaLoaded(data: CaptchaData) {
-        Log.d("XQQQStateSlide", "onCaptchaLoaded: ${data.captcha_type}, ${data.status}")
         reset()
         val cContent = data.content
         challengeId = cContent!!.challenge_id!!
@@ -169,7 +169,7 @@ class SlidePuzzleView @JvmOverloads constructor(
     }
 
     override fun applyDefaultFont(typeface: Typeface) {
-        puzzleSlider.setTypeface(typeface)
+        captchaMessage.setTypeface(typeface)
         slideMessage.setTypeface(typeface)
     }
 
@@ -184,9 +184,11 @@ class SlidePuzzleView @JvmOverloads constructor(
 
     override fun lock() {
         puzzleSlider.isEnabled = false
+        puzzleSlider.stopSliderThumb()
     }
 
     override fun unlock() {
         puzzleSlider.isEnabled = true
+        puzzleSlider.animateSliderThumb()
     }
 }

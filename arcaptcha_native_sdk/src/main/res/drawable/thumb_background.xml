@@ -1,6 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#FFFFFF"/>
+    android:shape="rectangle">
+    <solid android:color="@color/main_button_color"/>
     <stroke android:width="1dp" android:color="#CCC"/>
+    <corners android:radius="16dp"/>
     <padding android:left="5dp" android:top="5dp" android:right="5dp" android:bottom="5dp"/>
 </shape>
