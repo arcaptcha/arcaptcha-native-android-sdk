@@ -73,14 +73,13 @@
                 android:gravity="start">
 
                 <ImageButton
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/captcha_footer_shield_size"
+                    android:layout_height="@dimen/captcha_footer_shield_size"
                     android:layout_marginEnd="2dp"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:contentDescription="لوگو شیلد"
                     android:scaleType="fitCenter"
-
                     android:src="@drawable/ic_shield" />
 
                 <TextView
@@ -89,13 +88,14 @@
                     android:layout_height="wrap_content"
                     android:text="قدرت گرفته از آرکپچا"
                     android:textColor="@color/footer_content_color"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/captcha_footer_text_size"
                     android:letterSpacing="-0.075"
                     android:layout_gravity="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -103,9 +103,9 @@
 
                 <ImageButton
                     android:id="@+id/infoButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_width="@dimen/captcha_footer_icon_size"
+                    android:layout_height="@dimen/captcha_footer_icon_size"
+                    android:layout_marginEnd="@dimen/captcha_footer_icon_gap"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"
@@ -114,10 +114,10 @@
 
                 <ImageButton
                     android:id="@+id/toggleButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_width="@dimen/captcha_footer_icon_size"
+                    android:layout_height="@dimen/captcha_footer_icon_size"
+                    android:layout_marginStart="@dimen/captcha_footer_icon_gap"
+                    android:layout_marginEnd="@dimen/captcha_footer_icon_gap"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"
@@ -126,9 +126,9 @@
 
                 <ImageButton
                     android:id="@+id/refreshButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="6dp"
+                    android:layout_width="@dimen/captcha_footer_icon_size"
+                    android:layout_height="@dimen/captcha_footer_icon_size"
+                    android:layout_marginStart="@dimen/captcha_footer_icon_gap"
                     android:background="@drawable/rounded_icon_bg"
                     app:tint="@color/footer_content_color"
                     android:scaleType="fitCenter"

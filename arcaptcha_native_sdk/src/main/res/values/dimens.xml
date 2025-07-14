@@ -1,4 +1,8 @@
 <resources>
     <dimen name="fake_vis_width">5dp</dimen>
     <dimen name="fake_vis_margin">3dp</dimen>
+    <dimen name="captcha_footer_icon_gap">6dp</dimen>
+    <dimen name="captcha_footer_icon_size">21dp</dimen>
+    <dimen name="captcha_footer_text_size">14sp</dimen>
+    <dimen name="captcha_footer_shield_size">28dp</dimen>
 </resources>
