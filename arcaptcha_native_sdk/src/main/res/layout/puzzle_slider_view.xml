@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sliderContainer"
     android:layout_width="299dp"
-    android:layout_height="36dp"
+    android:layout_height="44dp"
     android:layoutDirection="ltr"
     android:background="@android:color/transparent">
 
@@ -15,8 +15,8 @@
 
     <FrameLayout
         android:id="@+id/sliderThumb"
-        android:layout_width="50dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/captcha_slider_width"
+        android:layout_height="44dp"
         android:background="@drawable/thumb_background"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -25,9 +25,11 @@
 
         <ImageView
             android:id="@+id/thumbArrow"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:src="@drawable/arrow_right"
             app:tint="@android:color/white" />
     </FrameLayout>

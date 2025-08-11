@@ -6,7 +6,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,7 +14,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
+import co.arcaptcha.arcaptcha_native_sdk.R
 import co.arcaptcha.arcaptcha_native_sdk.databinding.PuzzleSliderViewBinding
 import kotlin.math.roundToInt
 
@@ -42,10 +41,10 @@ class PuzzleSlider @JvmOverloads constructor(
     init {
         sliderThumb.setOnTouchListener(this)
 
-        val forwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", 0f, -10f)
+        val forwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", 0f, -18f)
         forwardAnim.duration = 400
 
-        val backwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", -10f, 0f)
+        val backwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", -18f, 0f)
         backwardAnim.duration = 800
 
         animatorSet = AnimatorSet()
@@ -60,10 +59,12 @@ class PuzzleSlider @JvmOverloads constructor(
     }
 
     public fun animateSliderThumb(){
+        println("XQQQAnimateSliderThumb")
         animatorSet.start()
     }
 
     public fun stopSliderThumb(){
+        println("XQQQStopSliderThumb")
         animatorSet.pause()
         thumbArrow.translationX = 0f
     }
@@ -77,8 +78,9 @@ class PuzzleSlider @JvmOverloads constructor(
     }
 
     public fun setMaxValue(value: Float){
-        //50 = size thumb be dp ke dar file xml set shode ast
-        this.sliderMaxValue = value - 50
+        val rawSliderWidthDP = resources.getDimension(R.dimen.captcha_slider_width) /
+                resources.displayMetrics.density
+        this.sliderMaxValue = value - rawSliderWidthDP
     }
 
     fun resetSlider(){
