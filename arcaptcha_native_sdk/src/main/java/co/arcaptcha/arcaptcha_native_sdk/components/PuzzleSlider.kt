@@ -40,26 +40,31 @@ class PuzzleSlider @JvmOverloads constructor(
 
     init {
         sliderThumb.setOnTouchListener(this)
+        animatorSet = createAnimatorSet()
+    }
 
-        val forwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", 0f, -18f)
-        forwardAnim.duration = 400
+    private fun createAnimatorSet(): AnimatorSet {
+        val forwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", 0f, -18f).apply {
+            duration = 400
+        }
+        val backwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", -18f, 0f).apply {
+            duration = 800
+        }
 
-        val backwardAnim = ObjectAnimator.ofFloat(thumbArrow, "translationX", -18f, 0f)
-        backwardAnim.duration = 800
-
-        animatorSet = AnimatorSet()
-        animatorSet.playSequentially(forwardAnim, backwardAnim)
-        animatorSet.interpolator = LinearInterpolator()
-
-        animatorSet.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                animatorSet.start()
-            }
-        })
+        return AnimatorSet().apply {
+            playSequentially(forwardAnim, backwardAnim)
+            interpolator = LinearInterpolator()
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    start()
+                }
+            })
+        }
     }
 
     public fun animateSliderThumb(){
         println("XQQQAnimateSliderThumb")
+        animatorSet = createAnimatorSet()
         animatorSet.start()
     }
 
