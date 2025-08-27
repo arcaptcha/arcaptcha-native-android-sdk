@@ -37,7 +37,7 @@ class CaptchaActivity : AppCompatActivity() {
 
         mainQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer(token: String) {
-                showStatus(mainQuestStatus, "پازل حل شد!")
+                showStatus(mainQuestStatus, "Token: $token")
             }
 
             override fun onError(message: String) {
@@ -55,7 +55,7 @@ class CaptchaActivity : AppCompatActivity() {
 
         altQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer(token: String) {
-                showStatus(altQuestStatus, "پازل حل شد!")
+                showStatus(altQuestStatus, "Token: $token")
             }
 
             override fun onError(message: String) {
@@ -73,7 +73,7 @@ class CaptchaActivity : AppCompatActivity() {
 
         puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
             override fun onCorrectAnswer(token: String) {
-                showStatus(puzzleStatus, "پازل حل شد!")
+                showStatus(puzzleStatus, "Token: $token")
             }
 
             override fun onError(message: String) {
