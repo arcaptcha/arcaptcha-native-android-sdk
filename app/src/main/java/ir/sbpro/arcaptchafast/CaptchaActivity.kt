@@ -36,7 +36,7 @@ class CaptchaActivity : AppCompatActivity() {
         val puzzleArcApi = ArcaptchaAPI("bq44zwr6cn", "localhost")
 
         mainQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
-            override fun onCorrectAnswer() {
+            override fun onCorrectAnswer(token: String) {
                 showStatus(mainQuestStatus, "پازل حل شد!")
             }
 
@@ -54,7 +54,7 @@ class CaptchaActivity : AppCompatActivity() {
         })
 
         altQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
-            override fun onCorrectAnswer() {
+            override fun onCorrectAnswer(token: String) {
                 showStatus(altQuestStatus, "پازل حل شد!")
             }
 
@@ -72,7 +72,7 @@ class CaptchaActivity : AppCompatActivity() {
         })
 
         puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
-            override fun onCorrectAnswer() {
+            override fun onCorrectAnswer(token: String) {
                 showStatus(puzzleStatus, "پازل حل شد!")
             }
 

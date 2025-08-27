@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 }
 // Step 2. Add the dependency
 dependencies {
-    implementation 'com.github.arcaptcha:arcaptcha-native-android-sdk:v1.0.0'
+    implementation 'com.github.arcaptcha:arcaptcha-native-android-sdk:v1.0.1'
 }
 </pre>
 
@@ -37,7 +37,7 @@ dependencies {
 <dependency>
     <groupId>com.github.arcaptcha</groupId>
     <artifactId>arcaptcha-native-android-sdk</artifactId>
-    <version>v1.0.0</version>
+    <version>v1.0.1</version>
 </dependency>
 ```
 
@@ -60,8 +60,8 @@ The following snippet code will ask the user to complete a Question challenge.
 val questArcApi = ArcaptchaAPI("<YOUR_SITE_KEY>", "<YOUR_DOMAIN>")
 
 mainQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
-    override fun onCorrectAnswer() {
-        Log.d("Puzzle Result", "Puzzle Solved")
+    override fun onCorrectAnswer(token: String) {
+        Log.d("Puzzle Token", token)
     }
 
     override fun onError(message: String) {
@@ -99,8 +99,8 @@ The following snippet code will ask the user to complete a Puzzle challenge.
 val puzzleArcApi = ArcaptchaAPI("<YOUR_SITE_KEY>", "<YOUR_DOMAIN>")
 
 puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
-    override fun onCorrectAnswer() {
-        Log.d("Puzzle Result", "Puzzle Solved")
+    override fun onCorrectAnswer(token: String) {
+        Log.d("Puzzle Token", token)
     }
 
     override fun onError(message: String) {

@@ -151,9 +151,9 @@ class SlidePuzzleView @JvmOverloads constructor(
         outerCallback?.onStateChanged(state)
     }
 
-    override fun onCorrectAnswer() {
+    override fun onCorrectAnswer(token: String) {
         animateMessage(true, {
-            outerCallback?.onCorrectAnswer()
+            outerCallback?.onCorrectAnswer(token)
         })
     }
 

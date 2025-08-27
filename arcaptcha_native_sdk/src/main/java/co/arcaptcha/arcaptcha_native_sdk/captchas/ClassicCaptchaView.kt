@@ -117,8 +117,8 @@ class ClassicCaptchaView @JvmOverloads constructor(
         outerCallback?.onStateChanged(state)
     }
 
-    override fun onCorrectAnswer() {
-        outerCallback?.onCorrectAnswer()
+    override fun onCorrectAnswer(token: String) {
+        outerCallback?.onCorrectAnswer(token)
     }
 
     override fun onWrongAnswer() {

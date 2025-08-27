@@ -53,12 +53,13 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
         callback.onStateChanged(CaptchaState.SubmittingSolution)
 
         val api = RetrofitClient.getInstance(arcaptchaAPI!!.apiBaseUrl).api
+        val currentChallengeId = this.challengeId!!
 
         val retrofitRequest = object : Callback<CaptchaAnswerResponse> {
             override fun onResponse(call: Call<CaptchaAnswerResponse>, response: Response<CaptchaAnswerResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     if(response.body()!!.success){
-                        callback.onCorrectAnswer()
+                        callback.onCorrectAnswer(currentChallengeId)
                         callback.onStateChanged(CaptchaState.Done)
                     }
                     else {

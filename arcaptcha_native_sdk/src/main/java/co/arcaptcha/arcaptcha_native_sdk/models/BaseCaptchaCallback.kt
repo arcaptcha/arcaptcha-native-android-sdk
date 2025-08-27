@@ -4,7 +4,7 @@ import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 
 fun interface BaseCaptchaCallback {
     fun onStateChanged(state: CaptchaState){}
-    fun onCorrectAnswer()
+    fun onCorrectAnswer(token: String)
     fun onWrongAnswer(){}
     fun onError(message: String){}
 }
