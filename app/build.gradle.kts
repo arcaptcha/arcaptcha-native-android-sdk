@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId = "ir.sbpro.arcaptchafast"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
