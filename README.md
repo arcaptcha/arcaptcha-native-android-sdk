@@ -119,3 +119,77 @@ puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
 
 puzzleContainer.loadCaptcha()
 ```
+
+## Display a Question challenge in Jetpack Compose
+
+Add this theme to themes.xml
+### XML
+```xml
+<style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+</style>
+```
+
+### Kotlin
+```kotlin
+@Composable
+fun ArcaptchaQuestion(
+    siteKey: String,
+    domain: String,
+    modifier: Modifier = Modifier,
+    onCorrect: (token: String) -> Unit,
+    onError: (message: String) -> Unit
+) {
+    AndroidView(
+        modifier = modifier,
+        factory = { ctx ->
+            val themedContext = ContextThemeWrapper(ctx, R.style.AppTheme)
+
+            val container = QuestionContainerView(themedContext).apply {
+                val api = ArcaptchaAPI(siteKey, domain)
+                initCaptcha(api, object : CaptchaCallback {
+                    override fun onCorrectAnswer(token: String) {
+                        onCorrect(token)
+                    }
+
+                    override fun onWrongAnswer() {
+                        loadCaptcha()
+                    }
+
+                    override fun onError(message: String) {
+                        onError(message)
+                    }
+
+                    override fun onStateChanged(state: CaptchaState) {}
+                })
+
+                loadImageCaptcha()
+            }
+
+            container
+        },
+        update = { view -> }
+    )
+}
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            MyApplicationTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    ArcaptchaQuestion(
+                        siteKey = "<YOUR_SITE_KEY>",
+                        domain = "<YOUR_DOMAIN>",
+                        onCorrect = { token -> },
+                        onError = { message -> }
+                    )
+                }
+            }
+        }
+    }
+}
+```
+
+
