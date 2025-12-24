@@ -37,7 +37,7 @@ dependencies {
 <dependency>
     <groupId>com.github.arcaptcha</groupId>
     <artifactId>arcaptcha-native-android-sdk</artifactId>
-    <version>v1.0.3</version>
+    <version>v1.0.4</version>
 </dependency>
 ```
 
