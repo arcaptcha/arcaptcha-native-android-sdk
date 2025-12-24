@@ -125,9 +125,9 @@ class ClassicCaptchaView @JvmOverloads constructor(
         outerCallback?.onWrongAnswer()
     }
 
-    override fun onError(message: String) {
+    override fun onError(errorCode: Int, message: String) {
         Log.d("XQQQStateError", message)
-        outerCallback?.onError(message)
+        outerCallback?.onError(errorCode, message)
     }
 
     override fun applyDefaultFont(typeface: Typeface) {

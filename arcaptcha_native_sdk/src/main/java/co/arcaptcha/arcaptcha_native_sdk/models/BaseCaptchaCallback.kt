@@ -6,7 +6,7 @@ fun interface BaseCaptchaCallback {
     fun onStateChanged(state: CaptchaState){}
     fun onCorrectAnswer(token: String)
     fun onWrongAnswer(){}
-    fun onError(message: String){}
+    fun onError(errorCode: Int, message: String){}
 }
 
 fun interface CaptchaCallback : BaseCaptchaCallback {

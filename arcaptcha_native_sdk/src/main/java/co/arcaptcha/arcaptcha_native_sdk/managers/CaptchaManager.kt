@@ -1,5 +1,6 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
+import co.arcaptcha.arcaptcha_native_sdk.models.ArcaptchaError
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.responses.CaptchaAnswerResponse
@@ -31,7 +32,7 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
             callback.onCaptchaLoaded(response.body()!!)
             callback.onStateChanged(CaptchaState.AwaitingUserInput)
         } else {
-            onCaptchaError("Failed to load captcha.")
+            onCaptchaError(ArcaptchaError.CreateServerError.code, "Failed to load captcha.")
         }
     }
 
@@ -42,9 +43,9 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
         return RetrofitClient.getInstance(arcaptchaAPI.apiBaseUrl).api
     }
 
-    fun onCaptchaError(message: String){
+    fun onCaptchaError(errorCode: Int, message: String){
         callback.onStateChanged(CaptchaState.Error)
-        callback.onError(message)
+        callback.onError(errorCode, message)
         challengeId = null
     }
 
@@ -64,6 +65,7 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
                     }
                     else {
                         callback.onWrongAnswer()
+                        onCaptchaError(ArcaptchaError.AnswerWrongError.code, "Wrong Answer!")
                         callback.onStateChanged(CaptchaState.WrongAnswer)
                     }
                 }
@@ -75,16 +77,18 @@ abstract class CaptchaManager(protected val callback: InternalCaptchaCallback) {
                                 errorResponse.message.lowercase().contains("challenge not exist")
                         if(isChallengeExpired){
                             callback.onWrongAnswer()
+                            onCaptchaError(ArcaptchaError.AnswerWrongError.code, "Wrong Answer!")
                             callback.onStateChanged(CaptchaState.WrongAnswer)
                             errorHandled = true
                         }
                     }
-                    if(!errorHandled) onCaptchaError("Failed to submit captcha.")
+                    if(!errorHandled) onCaptchaError(ArcaptchaError.AnswerServerError.code,
+                        "Failed to submit captcha.")
                 }
             }
 
             override fun onFailure(call: Call<CaptchaAnswerResponse>, t: Throwable) {
-                onCaptchaError(t.message ?: "Unknown error")
+                onCaptchaError(ArcaptchaError.AnswerNetworkError.code,t.message ?: "Unknown error")
             }
         }
 

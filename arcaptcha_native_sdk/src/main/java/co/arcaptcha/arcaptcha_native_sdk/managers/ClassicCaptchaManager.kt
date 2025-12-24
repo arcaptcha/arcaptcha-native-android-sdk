@@ -1,6 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
 import android.util.Log
+import co.arcaptcha.arcaptcha_native_sdk.models.ArcaptchaError
 import co.arcaptcha.arcaptcha_native_sdk.models.CaptchaState
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.ClassicCaptchaData
@@ -24,7 +25,7 @@ class ClassicCaptchaManager(callback: InternalCaptchaCallback) : CaptchaManager(
             }
 
             override fun onFailure(call: Call<ClassicCaptchaData>, t: Throwable) {
-                onCaptchaError(t.message ?: "Unknown error")
+                onCaptchaError(ArcaptchaError.CreateNetworkError.code, t.message ?: "Unknown error")
             }
         })
     }

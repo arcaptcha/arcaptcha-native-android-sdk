@@ -1,5 +1,6 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
+import co.arcaptcha.arcaptcha_native_sdk.models.ArcaptchaError
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.SlidePuzzleData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseRequest
@@ -21,7 +22,7 @@ class SlidePuzzleManager(callback: InternalCaptchaCallback) : CaptchaManager(cal
             }
 
             override fun onFailure(call: Call<SlidePuzzleData>, t: Throwable) {
-                onCaptchaError(t.message ?: "Unknown error")
+                onCaptchaError(ArcaptchaError.CreateNetworkError.code, t.message ?: "Unknown error")
             }
         })
     }

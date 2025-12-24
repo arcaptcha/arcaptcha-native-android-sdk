@@ -1,5 +1,6 @@
 package co.arcaptcha.arcaptcha_native_sdk.managers
 
+import co.arcaptcha.arcaptcha_native_sdk.models.ArcaptchaError
 import co.arcaptcha.arcaptcha_native_sdk.models.InternalCaptchaCallback
 import co.arcaptcha.arcaptcha_native_sdk.models.captchas.VoiceChallengeData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseRequest
@@ -23,7 +24,7 @@ class VoiceChallengeManager(callback: InternalCaptchaCallback) : CaptchaManager(
             }
 
             override fun onFailure(call: Call<VoiceChallengeData>, t: Throwable) {
-                onCaptchaError(t.message ?: "Unknown error")
+                onCaptchaError(ArcaptchaError.CreateNetworkError.code, t.message ?: "Unknown error")
             }
         })
     }

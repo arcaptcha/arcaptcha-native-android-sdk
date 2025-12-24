@@ -40,8 +40,8 @@ class CaptchaActivity : AppCompatActivity() {
                 showStatus(mainQuestStatus, "Token: $token")
             }
 
-            override fun onError(message: String) {
-                finishStatus(mainQuestContainer, mainQuestStatus, message)
+            override fun onError(errorCode: Int, message: String) {
+                finishStatus(mainQuestContainer, mainQuestStatus, "$message ($errorCode)")
             }
 
             override fun onWrongAnswer() {
@@ -58,8 +58,8 @@ class CaptchaActivity : AppCompatActivity() {
                 showStatus(altQuestStatus, "Token: $token")
             }
 
-            override fun onError(message: String) {
-                finishStatus(altQuestContainer, altQuestStatus, message)
+            override fun onError(errorCode: Int, message: String) {
+                finishStatus(altQuestContainer, altQuestStatus, "$message ($errorCode)")
             }
 
             override fun onWrongAnswer() {
@@ -76,8 +76,8 @@ class CaptchaActivity : AppCompatActivity() {
                 showStatus(puzzleStatus, "Token: $token")
             }
 
-            override fun onError(message: String) {
-                finishStatus(puzzleContainer, puzzleStatus, message)
+            override fun onError(errorCode: Int, message: String) {
+                finishStatus(puzzleContainer, puzzleStatus, "$message ($errorCode)")
             }
 
             override fun onWrongAnswer() {
