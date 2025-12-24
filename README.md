@@ -64,8 +64,8 @@ mainQuestContainer.initCaptcha(questArcApi, object : CaptchaCallback {
         Log.d("Puzzle Token", token)
     }
 
-    override fun onError(message: String) {
-        Log.d("Puzzle Error", message)
+    override fun onError(errorCode: Int, message: String) {
+        Log.d("Puzzle Error", "$message ($errorCode)")
     }
 
     override fun onWrongAnswer() {
@@ -103,8 +103,8 @@ puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
         Log.d("Puzzle Token", token)
     }
 
-    override fun onError(message: String) {
-        Log.d("Puzzle Error", message)
+    override fun onError(errorCode: Int, message: String) {
+        Log.d("Puzzle Error", "$message ($errorCode)")
     }
 
     override fun onWrongAnswer() {
@@ -138,7 +138,7 @@ fun ArcaptchaQuestion(
     domain: String,
     modifier: Modifier = Modifier,
     onCorrect: (token: String) -> Unit,
-    onError: (message: String) -> Unit
+    onError: (errorCode: Int, message: String) -> Unit
 ) {
     AndroidView(
         modifier = modifier,
@@ -156,8 +156,8 @@ fun ArcaptchaQuestion(
                         loadCaptcha()
                     }
 
-                    override fun onError(message: String) {
-                        onError(message)
+                    override fun onError(errorCode: Int, message: String) {
+                        onError(errorCode, message)
                     }
 
                     override fun onStateChanged(state: CaptchaState) {}
@@ -183,7 +183,7 @@ class MainActivity : ComponentActivity() {
                         siteKey = "<YOUR_SITE_KEY>",
                         domain = "<YOUR_DOMAIN>",
                         onCorrect = { token -> },
-                        onError = { message -> }
+                        onError = { errorCode, message -> }
                     )
                 }
             }
