@@ -120,6 +120,17 @@ puzzleContainer.initCaptcha(puzzleArcApi, object : CaptchaCallback {
 puzzleContainer.loadCaptcha()
 ```
 
+## Error Codes Summary
+
+| Code | Name               | Type     | Description |
+|-----:|--------------------|----------|-------------|
+| 101  | CreateServerError  | Server   | Server failed to create captcha |
+| 102  | CreateNetworkError | Network  | Network error during captcha creation |
+| 201  | AnswerServerError  | Server   | Server failed to validate answer |
+| 202  | AnswerNetworkError | Network  | Network error during answer submission |
+| 203  | AnswerWrongError   | Logic    | Incorrect captcha answer |
+| 401  | UnknownError       | Unknown  | Unclassified error |
+
 ## Display a Question challenge in Jetpack Compose
 
 Add this theme to themes.xml
