@@ -1,0 +1,17 @@
+<resources>
+    <!-- Text -->
+    <color name="edit_text_color">#E6E6F0</color>
+    <color name="hint_color">#8E8EB3</color>
+    <color name="footer_content_color">#9A9BB8</color>
+
+    <!-- Backgrounds -->
+    <color name="edit_text_background">#1E1E2E</color>
+    <color name="edit_text_border_default">#1E1E2E</color>
+    <color name="main_container_bg">#12121A</color>
+    <color name="icon_bg">#1E1E2E</color>
+
+    <!-- Accent / Brand -->
+    <color name="edit_text_border_focused">#978FF2</color>
+    <color name="main_button_color">#978FF2</color>
+    <color name="arcaptcha_logo_color">#948CED</color>
+</resources>
