@@ -12,7 +12,7 @@
         android:id="@+id/captchaMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#5555AA"
+        android:textColor="@color/header_message_color"
         android:textSize="17sp"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="12dp"/>

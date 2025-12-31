@@ -1,5 +1,6 @@
 <resources>
     <!-- Text -->
+    <color name="header_message_color">#5555AA</color>
     <color name="edit_text_color">#65667e</color>
     <color name="hint_color">#B7B7D0</color>
     <color name="footer_content_color">#B0B1C5</color>
