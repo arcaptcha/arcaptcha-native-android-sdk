@@ -62,10 +62,6 @@ class CaptchaActivity : AppCompatActivity() {
                 finishStatus(mainQuestContainer, mainQuestStatus, "$message ($errorCode)")
             }
 
-            override fun onWrongAnswer() {
-                mainQuestContainer.loadCaptcha()
-            }
-
             override fun onStateChanged(state: CaptchaState) {
                 if(state == CaptchaState.LoadingCaptcha) hideStatus(mainQuestStatus)
             }
@@ -80,10 +76,6 @@ class CaptchaActivity : AppCompatActivity() {
                 finishStatus(altQuestContainer, altQuestStatus, "$message ($errorCode)")
             }
 
-            override fun onWrongAnswer() {
-                altQuestContainer.loadCaptcha()
-            }
-
             override fun onStateChanged(state: CaptchaState) {
                 if(state == CaptchaState.LoadingCaptcha) hideStatus(altQuestStatus)
             }
@@ -96,10 +88,6 @@ class CaptchaActivity : AppCompatActivity() {
 
             override fun onError(errorCode: Int, message: String) {
                 finishStatus(puzzleContainer, puzzleStatus, "$message ($errorCode)")
-            }
-
-            override fun onWrongAnswer() {
-                puzzleContainer.loadCaptcha()
             }
 
             override fun onStateChanged(state: CaptchaState) {
