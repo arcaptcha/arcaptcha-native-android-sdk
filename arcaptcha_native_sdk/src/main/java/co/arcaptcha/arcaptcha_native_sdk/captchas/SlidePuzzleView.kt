@@ -20,6 +20,7 @@ import co.arcaptcha.arcaptcha_native_sdk.models.captchas.CaptchaData
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.BaseAnswerRequest
 import co.arcaptcha.arcaptcha_native_sdk.models.requests.SlideAnswerRequest
 import com.bumptech.glide.Glide
+import java.lang.Exception
 
 class SlidePuzzleView @JvmOverloads constructor(
     context: Context,
@@ -92,13 +93,16 @@ class SlidePuzzleView @JvmOverloads constructor(
                 }
             })
 
-            Glide.with(context)
-                .load(puzzleBgUrl)
-                .into(puzzleBgImage)
+            try {
+                Glide.with(context)
+                    .load(puzzleBgUrl)
+                    .into(puzzleBgImage)
 
-            Glide.with(context)
-                .load(puzzlePieceUrl)
-                .into(puzzlePieceImage)
+                Glide.with(context)
+                    .load(puzzlePieceUrl)
+                    .into(puzzlePieceImage)
+            }
+            catch (ex: Exception){}
         }
         outerCallback?.onCaptchaLoaded()
     }

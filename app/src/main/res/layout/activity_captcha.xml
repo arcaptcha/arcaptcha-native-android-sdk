@@ -1,85 +1,104 @@
-<ScrollView
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#EEEEEE"
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" >
+                <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
+                    android:id="@+id/mainQuestionContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/mainQuestStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="#55ACDB"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:padding="15dp"
+                    android:textColor="#FFF" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" >
+
+                <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
+                    android:id="@+id/altQuestionContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/altQuestStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="#55ACDB"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:padding="15dp"
+                    android:textColor="#FFF" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" >
+
+                <co.arcaptcha.arcaptcha_native_sdk.containers.PuzzleContainerView
+                    android:id="@+id/puzzleContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/slidePuzzleStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="#55ACDB"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:padding="15dp"
+                    android:textColor="#FFF" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabTheme"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#EEEEEE"
-        android:gravity="center">
+        android:contentDescription="Toggle theme"
+        android:src="@drawable/ic_contrast"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" >
-            <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
-                android:id="@+id/mainQuestionContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/mainQuestStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="#55ACDB"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:padding="15dp"
-                android:textColor="#FFF" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" >
-
-            <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
-                android:id="@+id/altQuestionContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/altQuestStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="#55ACDB"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:padding="15dp"
-                android:textColor="#FFF" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" >
-
-            <co.arcaptcha.arcaptcha_native_sdk.containers.PuzzleContainerView
-                android:id="@+id/puzzleContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/slidePuzzleStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="#55ACDB"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:padding="15dp"
-                android:textColor="#FFF" />
-        </FrameLayout>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

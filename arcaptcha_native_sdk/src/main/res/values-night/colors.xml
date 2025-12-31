@@ -5,9 +5,9 @@
     <color name="footer_content_color">#9A9BB8</color>
 
     <!-- Backgrounds -->
+    <color name="main_container_bg">#171730</color>
     <color name="edit_text_background">#1E1E2E</color>
     <color name="edit_text_border_default">#1E1E2E</color>
-    <color name="main_container_bg">#12121A</color>
     <color name="icon_bg">#1E1E2E</color>
 
     <!-- Accent / Brand -->
