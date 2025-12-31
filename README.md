@@ -131,6 +131,23 @@ puzzleContainer.loadCaptcha()
 | 203  | AnswerWrongError   | Logic    | Incorrect captcha answer |
 | 401  | UnknownError       | Unknown  | Unclassified error |
 
+## Dark & Light Mode Support
+This library supports Light and Dark mode automatically.
+All widgets follow the host application's current theme via the provided Context.
+When the app switches between Light and Dark mode, the widgets update accordingly without any additional configuration
+
+### Switch theme in your app
+```kotlin
+// Enable Dark mode
+AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+// Enable Light mode
+AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+// Follow system setting
+AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+```
+
 ## Display a Question challenge in Jetpack Compose
 
 Add this theme to themes.xml
