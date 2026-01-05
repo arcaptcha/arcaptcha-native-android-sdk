@@ -4,10 +4,10 @@
 
 This SDK provides a native sdk for [ARCaptcha](https://www.arcaptcha.ir). You will need to configure a `site key` and a `secret key` from your arcaptcha account in order to use it.
 
-
 ## Installation
 
 ### Gradle
+
 <pre>
 // Step 1. Add it in your root settings.gradle at the end of repositories:
 dependencyResolutionManagement {
@@ -19,11 +19,12 @@ dependencyResolutionManagement {
 }
 // Step 2. Add the dependency
 dependencies {
-    implementation 'com.github.arcaptcha:arcaptcha-native-android-sdk:v1.0.6'
+    implementation 'com.github.arcaptcha:arcaptcha-native-android-sdk:v1.0.7'
 }
 </pre>
 
 ### Maven
+
 ```xml
 //Step 1. Add to pom.xml
 <repositories>
@@ -37,17 +38,16 @@ dependencies {
 <dependency>
     <groupId>com.github.arcaptcha</groupId>
     <artifactId>arcaptcha-native-android-sdk</artifactId>
-    <version>v1.0.6</version>
+    <version>v1.0.7</version>
 </dependency>
 ```
 
-
-
 ## Display a Question challenge
 
-The following snippet code will ask the user to complete a Question challenge. 
+The following snippet code will ask the user to complete a Question challenge.
 
 ### XML
+
 ```xml
 <co.arcaptcha.arcaptcha_native_sdk.containers.QuestionContainerView
     android:id="@+id/mainQuestionContainer"
@@ -56,6 +56,7 @@ The following snippet code will ask the user to complete a Question challenge.
 ```
 
 ### Kotlin
+
 ```kotlin
 val questArcApi = ArcaptchaAPI("<YOUR_SITE_KEY>", "<YOUR_DOMAIN>")
 
@@ -87,6 +88,7 @@ mainQuestContainer.loadImageCaptcha()
 The following snippet code will ask the user to complete a Puzzle challenge.
 
 ### XML
+
 ```xml
 <co.arcaptcha.arcaptcha_native_sdk.containers.PuzzleContainerView
     android:id="@+id/puzzleContainer"
@@ -95,6 +97,7 @@ The following snippet code will ask the user to complete a Puzzle challenge.
 ```
 
 ### Kotlin
+
 ```kotlin
 val puzzleArcApi = ArcaptchaAPI("<YOUR_SITE_KEY>", "<YOUR_DOMAIN>")
 
@@ -122,21 +125,23 @@ puzzleContainer.loadCaptcha()
 
 ## Error Codes Summary
 
-| Code | Name               | Type     | Description |
-|-----:|--------------------|----------|-------------|
-| 101  | CreateServerError  | Server   | Server failed to create captcha |
-| 102  | CreateNetworkError | Network  | Network error during captcha creation |
-| 201  | AnswerServerError  | Server   | Server failed to validate answer |
-| 202  | AnswerNetworkError | Network  | Network error during answer submission |
-| 203  | AnswerWrongError   | Logic    | Incorrect captcha answer |
-| 401  | UnknownError       | Unknown  | Unclassified error |
+| Code | Name               | Type    | Description                            |
+| ---: | ------------------ | ------- | -------------------------------------- |
+|  101 | CreateServerError  | Server  | Server failed to create captcha        |
+|  102 | CreateNetworkError | Network | Network error during captcha creation  |
+|  201 | AnswerServerError  | Server  | Server failed to validate answer       |
+|  202 | AnswerNetworkError | Network | Network error during answer submission |
+|  203 | AnswerWrongError   | Logic   | Incorrect captcha answer               |
+|  401 | UnknownError       | Unknown | Unclassified error                     |
 
 ## Dark & Light Mode Support
+
 This library supports Light and Dark mode automatically.
 All widgets follow the host application's current theme via the provided Context.
 When the app switches between Light and Dark mode, the widgets update accordingly without any additional configuration
 
 ### Switch theme in your app
+
 ```kotlin
 // Enable Dark mode
 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -151,7 +156,9 @@ AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 ## Display a Question challenge in Jetpack Compose
 
 Add this theme to themes.xml
+
 ### XML
+
 ```xml
 <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
@@ -159,6 +166,7 @@ Add this theme to themes.xml
 ```
 
 ### Kotlin
+
 ```kotlin
 @Composable
 fun ArcaptchaQuestion(
@@ -219,5 +227,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
-
-

@@ -1,7 +1,7 @@
 package co.arcaptcha.arcaptcha_native_sdk.remote
 
 class ArcaptchaAPI (val siteKey: String, val domain: String) {
-    var apiBaseUrl: String = "https://android-api.arcaptcha.co/"
+    var apiBaseUrl: String = "https://android-api.arcaptcha.ir/"
 
     fun getImageUrl(resourceId: String) : String {
         return "${apiBaseUrl}arcaptcha/api/images/${resourceId}"
